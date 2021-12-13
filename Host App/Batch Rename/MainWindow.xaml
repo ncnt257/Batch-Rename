@@ -102,7 +102,7 @@
                     </DockPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <Button Margin="20 0 5 0" BorderBrush="#794C74" Background="#794C74">Save</Button>
-                        <Button Margin="0 0 5 0" BorderBrush="#00EAD3" Background="#00EAD3">Save as new</Button>
+                        <Button Margin="0 0 5 0" BorderBrush="#F0A500" Background="#F0A500">Save as new</Button>
                         <Button Margin="0 0 5 0" BorderBrush="#BE0000" Background="#BE0000">Delete all</Button>
                     </StackPanel>
                 </Grid>
