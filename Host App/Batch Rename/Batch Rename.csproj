@@ -5,11 +5,28 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>Batch_Rename</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>batch-rename-icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\choose-preset.png" />
+    <None Remove="Images\copy-to.png" />
+    <None Remove="Images\disable-copy-to.png" />
+    <None Remove="Images\file-explorer.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\choose-preset.png" />
+    <Resource Include="Images\copy-to.png" />
+    <Resource Include="Images\disable-copy-to.png" />
+    <Resource Include="Images\file-explorer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

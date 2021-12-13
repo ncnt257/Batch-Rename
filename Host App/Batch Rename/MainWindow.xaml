@@ -10,90 +10,120 @@
         ResizeMode="CanResizeWithGrip">
 
     <DockPanel>
-
         <!--Tool bar-->
-        <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar>
-                <Button Name="FileExplorerButton" Content="File Explorer"/>
-                <Button Name="ChoosePresetButton" Content="Choose Preset" />
-                <Button Name="CopyToButton" Content="Copy To" />
+        <ToolBarTray DockPanel.Dock="Top" Background="#D8E3E7">
+            <ToolBar Background="#D8E3E7">
+                <Button Name="FileExplorerButton" Background="#D8E3E7">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="/Images/file-explorer.png" Width="20" Margin="0 0 5 0"/>
+                        <Label Content="Open File Explorer" FontSize="15"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="ChoosePresetButton" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/choose-preset.png" Width="20" Margin="0 0 5 0"/>
+                        <Label Content="Choose Preset" FontSize="15"/>
+                    </StackPanel>
+                </Button>
+                <ComboBox Name="CopyToBox">
+                    <ComboBoxItem IsSelected="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/copy-to.png" Width="20" Margin="0 0 5 0"/>
+                            <Label Content="Copy to" FontSize="15"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/disable-copy-to.png" Width="15" Margin="0 0 5 0"/>
+                            <Label Content="Disable copy" FontSize="15"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                </ComboBox>
             </ToolBar>
         </ToolBarTray>
         <TextBox AcceptsReturn="True" />
 
-       <Grid>
-           <Grid.RowDefinitions>
-               <RowDefinition Height="3*"/>
-               <RowDefinition Height="2*"/>
-           </Grid.RowDefinitions>
-               <Grid>
-                   <Grid.RowDefinitions>
-                       <RowDefinition Height="1*"/>
-                       <RowDefinition Height="2*"/>
-                   </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
                 <!--Copy to; Apply to-->
-                <StackPanel Grid.Row="0" Background="Black">
+                <StackPanel Grid.Row="0" Background="#126E82">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <Label FontSize="12" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-                        <TextBlock VerticalAlignment="Center" Background="White" FontSize="12">C:\Users\Admin</TextBlock>
+                        <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
+                        <TextBlock VerticalAlignment="Center" Background="White" FontSize="15" Height="25" Width="300" LineHeight="30">C:\Users\Admin</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <Label FontSize="12" Margin="0,0,20,0" Foreground="GhostWhite">Apply To:</Label>
-                        <ComboBox Width="Auto" Background="White"></ComboBox>
+                        <Label Content="Apply to" FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite"/>
+                        <ComboBox Width="Auto" Background="#D8E3E7">
+                            <ComboBoxItem IsSelected="True" Height="35">
+                                <Label Content="File" FontSize="15"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem Height="35">
+                                <Label Content="Folder" FontSize="15"/>
+                            </ComboBoxItem>
+                        </ComboBox>
                     </StackPanel>
                 </StackPanel>
 
                 <!--Files, folders list-->
-                <ScrollViewer Grid.Row="1" Background="AntiqueWhite">
+                <ScrollViewer Grid.Row="1" Background="#F3F4ED">
                     <ListView></ListView>
                 </ScrollViewer>
 
 
             </Grid>
-               <Grid Grid.Row="1">
-                   <Grid.RowDefinitions>
-                       <RowDefinition Height="1*"/>
-                       <RowDefinition Height="3*"/>
-                   </Grid.RowDefinitions>
-                   <!--Rule set name; Save, delete buttons-->
-                   <Grid Grid.Row="0" Background="Gray">
-                       <Grid.ColumnDefinitions>
-                           <ColumnDefinition Width="*"/>
-                           <ColumnDefinition Width="250"/>
-                       </Grid.ColumnDefinitions>
-                       <DockPanel>
-                           <Label Foreground="FloralWhite" FontSize="15" Grid.Column="0">Rule Set name</Label>
-                           <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                               <ComboBox VerticalContentAlignment="Center" >
-                                   <ComboBoxItem IsSelected="True">Rules Combo box</ComboBoxItem>
-                               </ComboBox>
-                               <Button Margin="0,0,20,0">Add</Button>
-                           </StackPanel>
-                       </DockPanel>
-                       <StackPanel Grid.Column="1" Orientation="Horizontal">
-                           <Button>Save</Button>
-                           <Button>Save as new</Button>
-                           <Button>Delete all</Button>
-                       </StackPanel>
-                   </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <!--Rule set name; Save, delete buttons-->
+                <Grid Grid.Row="0" Background="#132C33">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel>
+                        <Label Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <ComboBox VerticalContentAlignment="Center" Background="#126E82">
+                                <ComboBoxItem IsSelected="True">
+                                    <Label Content="Replace rule" FontSize="15" Foreground="GhostWhite" Padding="10 0 5 0"/>
+                                </ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </DockPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button Margin="20 0 5 0" BorderBrush="#794C74" Background="#794C74">Save</Button>
+                        <Button Margin="0 0 5 0" BorderBrush="#00EAD3" Background="#00EAD3">Save as new</Button>
+                        <Button Margin="0 0 5 0" BorderBrush="#BE0000" Background="#BE0000">Delete all</Button>
+                    </StackPanel>
+                </Grid>
 
 
-                   <!--Rules list and Config user control-->
-                   <Grid Grid.Row="1">
-                       <Grid.ColumnDefinitions>
-                           <ColumnDefinition Width="*"/>
-                           <ColumnDefinition Width="250" MinWidth="250"/>
-                       </Grid.ColumnDefinitions>
-                       
+                <!--Rules list and Config user control-->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="250" MinWidth="250"/>
+                    </Grid.ColumnDefinitions>
 
-                    <ScrollViewer Grid.Column="0" Background="Aquamarine"></ScrollViewer>
-                       <ScrollViewer Grid.Column="1" Background="BlueViolet" ></ScrollViewer>
+
+                    <ScrollViewer Grid.Column="0" Background="#D8E3E7"></ScrollViewer>
+                    <ScrollViewer Grid.Column="1" Background="#126E82" ></ScrollViewer>
 
                     <!--Để resize grid-->
-                    <GridSplitter Grid.Column="1" Width="5" Background="Red" HorizontalAlignment="Left"></GridSplitter>
+                    <GridSplitter Grid.Column="1" Width="5" Background="Black" HorizontalAlignment="Left"></GridSplitter>
 
                 </Grid>
-                
+
             </Grid>
 
         </Grid>
