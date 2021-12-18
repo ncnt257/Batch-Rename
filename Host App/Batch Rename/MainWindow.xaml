@@ -7,13 +7,17 @@
         mc:Ignorable="d"
         Title="Batch Rename" Height="450" Width="800"
         MinHeight="550" MinWidth="650"
-        ResizeMode="CanResizeWithGrip">
-
+        ResizeMode="CanResizeWithGrip" 
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:fileToRoot x:Key="fileToRootConverter"/>
+        <local:fileToName x:Key="fileToNameConverter"/>
+    </Window.Resources>
     <DockPanel>
         <!--Tool bar-->
         <ToolBarTray DockPanel.Dock="Top" Background="#D8E3E7">
             <ToolBar Background="#D8E3E7">
-                <Button Name="WindowsExplorerButton" Background="#D8E3E7">
+                <Button Click="WindowsExplorerButton_Click"  Name="WindowsExplorerButton" Background="#D8E3E7">
                     <StackPanel Orientation="Horizontal" >
                         <Image Source="/Images/file-explorer.png" Width="20" Margin="0 0 5 0"/>
                         <Label Content="Open Windows Explorer" FontSize="15"/>
@@ -73,8 +77,55 @@
                 </StackPanel>
 
                 <!--Files, folders list-->
+
+                <!--test preview và đổi tên-->
+                <Button Click="ApplyRulesButton_Click" Content="Test change name" HorizontalAlignment="Left" Margin="643,55,0,0" VerticalAlignment="Top"/>
+                <Button Click="PreviewChange_Click" Content="Preview change" HorizontalAlignment="Left" Margin="500,54,0,0" VerticalAlignment="Top"/>
+                <!--test preview và đổi tên-->
+
+
                 <ScrollViewer Grid.Row="1" Background="#F3F4ED">
-                    <ListView  Name="FilesListView"></ListView>
+                    <ListView Name="FilesListView" SelectionChanged="FilesListView_SelectionChanged" AutomationProperties.IsColumnHeader="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Check"  Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding isChecked}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="File name" Width="200" DisplayMemberBinding="{Binding Root, Converter = { StaticResource fileToNameConverter }}" />
+                                <GridViewColumn Header="Preview" Width="200" DisplayMemberBinding="{Binding PreviewName}" />
+                                <GridViewColumn Header="Directory" Width="200" DisplayMemberBinding="{Binding Root, Converter = { StaticResource fileToRootConverter }}" />
+
+                            </GridView>
+
+                        </ListView.View>
+
+                        <!--<ListView.ItemTemplate>
+                            <DataTemplate >
+                                <Grid Height="48" Width="900" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Height="44">
+                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding}" />
+                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding}" />
+                                        <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>-->
+                        <!--<ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>-->
+                    </ListView>
                 </ScrollViewer>
 
 
