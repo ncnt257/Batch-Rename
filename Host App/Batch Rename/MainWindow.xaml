@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Batch_Rename"
         mc:Ignorable="d"
-        Title="Batch Rename" Height="450" Width="800"
+        Title="Batch Rename" Height="450" Width="1000"
         MinHeight="550" MinWidth="650"
         ResizeMode="CanResizeWithGrip">
 
@@ -88,7 +88,7 @@
                 <Grid Grid.Row="0" Background="#132C33">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="250"/>
                     </Grid.ColumnDefinitions>
                     <DockPanel>
                         <Label Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
@@ -98,12 +98,13 @@
                                     <Label Content="Replace rule" FontSize="15" Foreground="GhostWhite" Padding="10 0 5 0"/>
                                 </ComboBoxItem>
                             </ComboBox>
+                            <Button Content="Add" Margin="10 0 10 0 "/>
+                            <Button Content="Delete All" Margin="0 0 20 0 " BorderBrush="#AB2328" Background="#AB2328"/>
                         </StackPanel>
                     </DockPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Button Margin="20 0 5 0" BorderBrush="#794C74" Background="#794C74">Save</Button>
-                        <Button Margin="0 0 5 0" BorderBrush="#F0A500" Background="#F0A500">Save as new</Button>
-                        <Button Margin="0 0 5 0" BorderBrush="#BE0000" Background="#BE0000">Delete all</Button>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="25 0 5 0" BorderBrush="#794C74" Background="#794C74">Save</Button>
+                        <Button BorderBrush="#F0A500" Background="#F0A500">Save as new</Button>
                     </StackPanel>
                 </Grid>
 
