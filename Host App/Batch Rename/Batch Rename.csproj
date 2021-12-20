@@ -13,15 +13,19 @@
     <None Remove="Images\copy-to.png" />
     <None Remove="Images\disable-copy-to.png" />
     <None Remove="Images\file-explorer.png" />
+    <None Remove="Images\file-icon.png" />
+    <None Remove="Images\folder-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
+
     <PackageReference Include="MaterialDesignColors" Version="2.0.4">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
   </ItemGroup>
 
@@ -37,6 +41,8 @@
     <Resource Include="Images\file-explorer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\file-icon.png" />
+    <Resource Include="Images\folder-icon.png" />
   </ItemGroup>
 
 </Project>
