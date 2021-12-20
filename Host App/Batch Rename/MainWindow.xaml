@@ -4,23 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Batch_Rename"
+        xmlns:converter="clr-namespace:Batch_Rename.Converter"
         mc:Ignorable="d"
         Title="Batch Rename" Height="450" Width="1000"
         MinHeight="550" MinWidth="650"
         ResizeMode="CanResizeWithGrip" 
         Loaded="Window_Loaded">
     <Window.Resources>
-        <local:fileToRoot x:Key="fileToRootConverter"/>
-        <local:fileToName x:Key="fileToNameConverter"/>
+        <converter:FileOrFolderToIconConverter x:Key="FileOrFolderToIconConverter"/>
     </Window.Resources>
     <DockPanel>
         <!--Tool bar-->
         <ToolBarTray DockPanel.Dock="Top" Background="#D8E3E7">
             <ToolBar Background="#D8E3E7">
-                <Button Click="WindowsExplorerButton_Click"  Name="WindowsExplorerButton" Background="#D8E3E7">
+                <Button Click="FileExplorerButton_Click"  Name="FileExplorerButton" Background="#D8E3E7">
                     <StackPanel Orientation="Horizontal" >
                         <Image Source="/Images/file-explorer.png" Width="20" Margin="0 0 5 0"/>
-                        <Label Content="Open Windows Explorer" FontSize="15"/>
+                        <Label Content="File Explorer" FontSize="15"/>
+                    </StackPanel>
+                </Button>
+                <Button Click="FolderExplorerButton_Click"  Name="FolderExplorerButton" Background="#D8E3E7">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="/Images/file-explorer.png" Width="20" Margin="0 0 5 0"/>
+                        <Label Content="Folder Explorer" FontSize="15"/>
                     </StackPanel>
                 </Button>
                 <Button Name="ChoosePresetButton" >
@@ -29,121 +35,86 @@
                         <Label Content="Choose Preset" FontSize="15"/>
                     </StackPanel>
                 </Button>
-                <ComboBox Name="CopyToComboBox">
-                    <ComboBoxItem IsSelected="True">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Images/copy-to.png" Width="20" Margin="0 0 5 0"/>
-                            <Label Content="Copy to" FontSize="15"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Images/disable-copy-to.png" Width="15" Margin="0 0 5 0"/>
-                            <Label Content="Disable copy" FontSize="15"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                </ComboBox>
+                <Button Name="CopyToButton" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/copy-to.png" Width="20" Margin="0 0 5 0"/>
+                        <Label Content="Copy to" FontSize="15"/>
+                    </StackPanel>
+                </Button>
+
+                
             </ToolBar>
         </ToolBarTray>
-        <TextBox AcceptsReturn="True" />
+
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
+                <RowDefinition Height="5"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <!--Copy to; Apply to-->
-                <StackPanel Grid.Row="0" Background="#126E82">
+     
+            <DockPanel  Grid.Row="0">
+
+                <!--Copy to-->
+                <StackPanel   Background="#126E82" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
                         <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-
-                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="White" FontSize="15" Height="25" Width="300" LineHeight="30">C:\Users\Admin</TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <Label Content="Apply to" FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite"/>
-                        <ComboBox Name="FilesOrFolderComboBox" Width="Auto" Background="#D8E3E7">
-                            <ComboBoxItem IsSelected="True" Height="35">
-                                <Label Content="File" FontSize="15"/>
-                            </ComboBoxItem>
-                            <ComboBoxItem Height="35">
-                                <Label Content="Folder" FontSize="15"/>
-                            </ComboBoxItem>
-                        </ComboBox>
+                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0"></TextBlock>
+                        <Button Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328">Disable Copy To</Button>
                     </StackPanel>
                 </StackPanel>
 
                 <!--Files, folders list-->
+                <ListView Background="#F3F4ED" Name="FilesListView" SelectionChanged="FilesListView_SelectionChanged"  DockPanel.Dock="Bottom">
+                    <ListView.Resources>
+                        <ContextMenu x:Key="ItemContextMenu">
+                            <MenuItem Name="RemoveFileButton" Header="Remove" Click="RemoveFileButtonMenuItem_OnClick"/>
+                            <MenuItem Name="MoveUpButton" Header="Up" />
+                            <MenuItem Name="MoveDownButton" Header="Down" />
+                        </ContextMenu>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image HorizontalAlignment="Center" Source="{Binding IsFile, Converter={StaticResource FileOrFolderToIconConverter}}" Width="20"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Check" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="File name" Width="auto" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Preview" Width="auto" DisplayMemberBinding="{Binding PreviewName}" />
+                            <GridViewColumn Header="Directory"  Width="auto" DisplayMemberBinding="{Binding Path}" />
+                        </GridView>
 
-                <!--test preview và đổi tên-->
-                <Button Click="ApplyRulesButton_Click" Content="Test change name" HorizontalAlignment="Left" Margin="643,55,0,0" VerticalAlignment="Top"/>
-                <Button Click="PreviewChange_Click" Content="Preview change" HorizontalAlignment="Left" Margin="500,54,0,0" VerticalAlignment="Top"/>
-                <!--test preview và đổi tên-->
-
-
-                <ScrollViewer Grid.Row="1" Background="#F3F4ED">
-                    <ListView Name="FilesListView" SelectionChanged="FilesListView_SelectionChanged" AutomationProperties.IsColumnHeader="True">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Check"  Width="100">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox IsChecked="{Binding isChecked}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="File name" Width="200" DisplayMemberBinding="{Binding Root, Converter = { StaticResource fileToNameConverter }}" />
-                                <GridViewColumn Header="Preview" Width="200" DisplayMemberBinding="{Binding PreviewName}" />
-                                <GridViewColumn Header="Directory" Width="200" DisplayMemberBinding="{Binding Root, Converter = { StaticResource fileToRootConverter }}" />
-
-                            </GridView>
-
-                        </ListView.View>
-
-                        <!--<ListView.ItemTemplate>
-                            <DataTemplate >
-                                <Grid Height="48" Width="900" >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal" Height="44">
-                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding}" />
-                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding}" />
-                                        <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding}" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>-->
-                        <!--<ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>-->
-                    </ListView>
-                </ScrollViewer>
-
-
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="3*"/>
-                </Grid.RowDefinitions>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
+                            <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </DockPanel>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Background="Black"/>
+            <DockPanel Grid.Row="2" >
+                
                 <!--Rule set name; Save, delete buttons-->
-                <Grid Grid.Row="0" Background="#132C33">
+                <Grid Background="#132C33" DockPanel.Dock="Top" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
-                    <DockPanel>
+                    <DockPanel Margin="10,5">
                         <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
+                        <Button Margin="20,0,0,0" Name="ApplyButton" Click="ApplyButton_OnClick">Apply</Button>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                             <ComboBox Name="RulesComboBox" VerticalContentAlignment="Center" Background="#126E82">
                                 <ComboBoxItem IsSelected="True">
@@ -162,7 +133,7 @@
 
 
                 <!--Rules list and Config user control-->
-                <Grid Grid.Row="1">
+                <Grid DockPanel.Dock="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="290" MinWidth="290"/>
@@ -182,7 +153,7 @@
 
                 </Grid>
 
-            </Grid>
+            </DockPanel>
 
         </Grid>
     </DockPanel>
