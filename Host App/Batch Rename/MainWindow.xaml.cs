@@ -19,7 +19,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Path = System.IO.Path;
 
@@ -44,14 +43,6 @@ namespace Batch_Rename
         {
             FilesListView.ItemsSource = filepaths;
 
-            /*string exePath = Assembly.GetExecutingAssembly().Location;
-            string folder = Path.GetDirectoryName(exePath);
-            var fileInfos = new DirectoryInfo(folder).GetFiles("*.dll");
-            var plugins = new List<IStringOperation>();
-            foreach(var fi in fileInfos)
-            {
-                Debug.WriteLine(fi.FullName);    
-            }*/
 
             string exePath = AppDomain.CurrentDomain.BaseDirectory;
             var fis = new DirectoryInfo(exePath).GetFiles("*.dll");
@@ -73,9 +64,8 @@ namespace Batch_Rename
 
                 }
             }
-            RulesListView.Items.Clear();
+            RulesComboBox.Items.Clear();
             RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
-
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
 
 
@@ -92,10 +82,7 @@ namespace Batch_Rename
 
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            FilesListView.ItemsSource = filepaths;
-        }
+
 
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)

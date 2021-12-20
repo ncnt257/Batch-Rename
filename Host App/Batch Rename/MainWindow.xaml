@@ -117,9 +117,11 @@
                         <Button Margin="20,0,0,0" Name="ApplyButton" Click="ApplyButton_OnClick">Apply</Button>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                             <ComboBox Name="RulesComboBox" VerticalContentAlignment="Center" Background="#126E82">
-                                <ComboBoxItem IsSelected="True">
-                                    <Label Content="Replace rule" FontSize="15" Foreground="GhostWhite" Padding="10 0 5 0"/>
-                                </ComboBoxItem>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value.Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
                             <Button Content="Add" Margin="10 0 10 0 "/>
                             <Button Content="Delete All" Margin="0 0 20 0 " BorderBrush="#AB2328" Background="#AB2328"/>
