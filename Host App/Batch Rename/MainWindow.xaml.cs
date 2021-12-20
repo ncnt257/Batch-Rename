@@ -66,19 +66,14 @@ namespace Batch_Rename
             }
             RulesComboBox.Items.Clear();
             RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
+            RulesListView.Items.Clear();
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
 
 
         }
 
 
-        private void FilesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            foreach (var filepath in filepaths)
-            {
-                filepath.PreviewName += "la";
-            }
-        }
+
 
 
 
@@ -87,10 +82,7 @@ namespace Batch_Rename
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            foreach (var filepath in filepaths)
-            {
-                filepath.PreviewName+="123";
-            }
+
             foreach (var filepath in filepaths)
             {
                 filepath.Rename(CopyToTextBlock.Text!=""? CopyToTextBlock.Text:filepath.Path);

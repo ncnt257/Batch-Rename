@@ -66,7 +66,7 @@
                 </StackPanel>
 
                 <!--Files, folders list-->
-                <ListView Background="#F3F4ED" Name="FilesListView" SelectionChanged="FilesListView_SelectionChanged"  DockPanel.Dock="Bottom">
+                <ListView Background="#F3F4ED" Name="FilesListView"  DockPanel.Dock="Bottom">
                     <ListView.Resources>
                         <ContextMenu x:Key="ItemContextMenu">
                             <MenuItem Name="RemoveFileButton" Header="Remove" Click="RemoveFileButtonMenuItem_OnClick"/>
@@ -123,7 +123,7 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <Button Content="Add" Margin="10 0 10 0 "/>
+                            <Button Content="Add" Margin="10 0 10 0 " Click="AddRule_Click"/>
                             <Button Content="Delete All" Margin="0 0 20 0 " BorderBrush="#AB2328" Background="#AB2328"/>
                         </StackPanel>
                     </DockPanel>
@@ -142,8 +142,30 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <ListView Name="RulesListView" Grid.Column="0" Background="#D8E3E7">
+                    <ListView Name="RulesListView" Grid.Column="0" Background="#D8E3E7" SelectionChanged="RulesListView_SelectionChanged">
+                        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource MaterialDesignListView}"></Style>
+                        <!--Cài context menu để chuột phải ở đây-->
+                        <ListView.Resources>
+                            <ContextMenu x:Key="ItemContextMenu">
+                                <MenuItem Name="RemoveRule" Header="Delete" Click="RemoveRule_Click"/>
+                            </ContextMenu>
+                        </ListView.Resources>
 
+
+                        <!--Thêm header với binding-->
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="200" Header="Rule name" DisplayMemberBinding="{Binding Path=Name}" />
+                                <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
+                            </GridView>
+                        </ListView.View>
+
+                        <!--Thêm context menu để chuột phải ở đây-->
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
+                                <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
                     </ListView>
                     <ScrollViewer Name="RuleConfigContent" Grid.Column="1" Background="#126E82" >
                         <!--Put User Control here-->

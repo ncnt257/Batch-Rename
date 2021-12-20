@@ -24,13 +24,16 @@ namespace Batch_Rename
         {
             if (IsChecked)
             {
-                if (copyPath == Path)
+                if (IsFile)
                 {
-                    System.IO.File.Move(FullName, $"{copyPath}/{PreviewName}");//ở đây không xài copy overwrite vì khi đổi tên nó thành file khác và đc copy chồng vô
-                }
-                else
-                {
-                    System.IO.File.Copy(FullName, $"{copyPath}/{PreviewName}",true);
+                    if (copyPath == Path)
+                    {
+                        System.IO.File.Move(FullName, $"{copyPath}/{PreviewName}");//ở đây không xài copy overwrite vì khi đổi tên nó thành file khác và đc copy chồng vô
+                    }
+                    else
+                    {
+                        System.IO.File.Copy(FullName, $"{copyPath}/{PreviewName}", true);
+                    }
                 }
             }
             
