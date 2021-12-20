@@ -146,11 +146,13 @@
                         <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                             <ComboBox Name="RulesComboBox" VerticalContentAlignment="Center" Background="#126E82">
-                                <ComboBoxItem IsSelected="True">
-                                    <Label Content="Replace rule" FontSize="15" Foreground="GhostWhite" Padding="10 0 5 0"/>
-                                </ComboBoxItem>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value.Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <Button Content="Add" Margin="10 0 10 0 "/>
+                            <Button Name="AddRule" Content="Add" Margin="10 0 10 0 " Click="AddRule_Click"/>
                             <Button Content="Delete All" Margin="0 0 20 0 " BorderBrush="#AB2328" Background="#AB2328"/>
                         </StackPanel>
                     </DockPanel>
@@ -169,8 +171,30 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <ListView Name="RulesListView" Grid.Column="0" Background="#D8E3E7">
+                    <ListView Name="RulesListView" Grid.Column="0" Background="#D8E3E7" SelectionChanged="RulesListView_SelectionChanged">
+                        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource MaterialDesignListView}"></Style>
+                        <!--Cài context menu để chuột phải ở đây-->
+                        <ListView.Resources>
+                            <ContextMenu x:Key="ItemContextMenu">
+                                <MenuItem Name="RemoveRule" Header="Delete" Click="RemoveRule_Click"/>
+                            </ContextMenu>
+                        </ListView.Resources>
 
+
+                        <!--Thêm header với binding-->
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="200" Header="Rule name" DisplayMemberBinding="{Binding Path=Name}" />
+                                <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
+                            </GridView>
+                        </ListView.View>
+
+                        <!--Thêm context menu để chuột phải ở đây-->
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
+                                <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
                     </ListView>
                     <ScrollViewer Name="RuleConfigContent" Grid.Column="1" Background="#126E82" >
                         <!--Put User Control here-->
@@ -179,11 +203,8 @@
 
                     <!--Để resize grid-->
                     <GridSplitter Grid.Column="1" Width="5" Background="Black" HorizontalAlignment="Left"></GridSplitter>
-
                 </Grid>
-
             </Grid>
-
         </Grid>
     </DockPanel>
 </Window>

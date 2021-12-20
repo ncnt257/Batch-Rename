@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RemoveSpacesAtBeginEnd
+namespace RemoveSpacesAtBeginEndRule
 {
     /// <summary>
     /// Interaction logic for RemoveSpacesAtBeginEndUC.xaml

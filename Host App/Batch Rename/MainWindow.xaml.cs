@@ -1,8 +1,13 @@
-﻿using Microsoft.Win32;
+﻿using Contract;
+
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +18,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Batch_Rename
 {
@@ -29,6 +33,50 @@ namespace Batch_Rename
         {
             InitializeComponent();
         }
+
+        Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
+        BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FilesListView.ItemsSource = filepaths;
+
+            /*string exePath = Assembly.GetExecutingAssembly().Location;
+            string folder = Path.GetDirectoryName(exePath);
+            var fileInfos = new DirectoryInfo(folder).GetFiles("*.dll");
+            var plugins = new List<IStringOperation>();
+            foreach(var fi in fileInfos)
+            {
+                Debug.WriteLine(fi.FullName);    
+            }*/
+
+            string exePath = AppDomain.CurrentDomain.BaseDirectory;
+            var fis = new DirectoryInfo(exePath).GetFiles("*.dll");
+
+
+            foreach (var f in fis) // Lần lượt duyệt qua các file dll
+            {
+                var assembly = Assembly.LoadFile(f.FullName);
+                var types = assembly.GetTypes();
+                foreach (var t in types)
+                {
+
+                    if (t.IsClass && typeof(IStringOperation).IsAssignableFrom(t))
+                    {
+                        IStringOperation c = (IStringOperation)Activator.CreateInstance(t);//do các luật có hàm tạo, new Args rồi nên không cần load class Args như trước nữa
+
+                        _prototypes.Add(c.Name, c);//Replace, AddPrefix,...
+                    }
+
+                }
+            }
+            RulesListView.Items.Clear();
+            RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
+
+            RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
+
+
+        }
+
 
         private void FilesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -72,16 +120,7 @@ namespace Batch_Rename
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            FilesListView.ItemsSource = filepaths;
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        
         private void ListViewItem_Selected(object sender, RoutedEventArgs e)
         {
 
@@ -148,6 +187,31 @@ namespace Batch_Rename
                     filepaths[i].PreviewName = $"{i}_{filepaths[i].getCurrentName()}";
                 }
             }
+        }
+
+        private void AddRule_Click(object sender, RoutedEventArgs e)
+        {
+            var element =
+                RulesComboBox.SelectedItem is KeyValuePair<string, IStringOperation> ? (KeyValuePair<string, IStringOperation>)RulesComboBox.SelectedItem : default;//selected item có kiểu keyValue pair<string,IStringOperation>, ép kiểu lại để xài
+            var action = element.Value;//value là luật ( IStringOperation)
+            _actions.Add(action.Clone());
+        }
+
+
+        private void RulesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var operation =
+               RulesListView.SelectedItem as IStringOperation;
+            if (operation is not null)//Luc mà delete xong, thằng event này sủa dơ, nên cần check null để app k crash
+            {
+                RuleConfigContent.Content = operation.ConfigUC;
+            }
+        }
+
+        private void RemoveRule_Click(object sender, RoutedEventArgs e)
+        {
+            var index = RulesListView.SelectedIndex;
+            _actions.RemoveAt(index);
         }
     }
 }
