@@ -10,7 +10,7 @@ namespace RemoveSpacesAtBeginEndRule
     public class RemoveSpacesAtBeginEndOperation : IStringOperation
     {
         public StringArgs Args { get; set; }
-        public string Name {get => "Remove spaces at begin and end rule";}
+        public string Name {get => "Remove Spaces At Begin And End Rule";}
         public string Description
         {
             get
