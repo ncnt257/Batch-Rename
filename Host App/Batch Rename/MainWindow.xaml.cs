@@ -210,13 +210,19 @@ namespace Batch_Rename
             if (operation is not null)//Luc mà delete xong, thằng event này sủa dơ, nên cần check null để app k crash
             {
                 RuleConfigContent.Content = operation.ConfigUC;
+                var s = new GridLength(290);
+                if (RuleConfigColumn.Width.Value < 290)
+                {
+                    RuleConfigColumn.Width = s;
+                }
+
             }
         }
 
         private void RemoveRule_Click(object sender, RoutedEventArgs e)
         {
             var index = RulesListView.SelectedIndex;
-            if(RuleConfigContent.Content == _actions[index].ConfigUC)
+            if(Equals(RuleConfigContent.Content, _actions[index].ConfigUC))
             {
                 RuleConfigContent.Content="";
             }
@@ -238,8 +244,11 @@ namespace Batch_Rename
                     var previewName = filepath.Name;
                     foreach (var stringOperation in _actions)
                     {
-                        //if(stringOperation.) check ischeck TODO
-                        previewName = stringOperation.Operate(previewName,filepath.IsFile);
+                        if (stringOperation.IsChecked)
+                        {
+                            previewName = stringOperation.Operate(previewName, filepath.IsFile);
+                        }
+                        
                     }
 
                     filepath.PreviewName = previewName;

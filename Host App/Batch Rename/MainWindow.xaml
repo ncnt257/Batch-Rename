@@ -42,18 +42,18 @@
                     </StackPanel>
                 </Button>
 
-                
+
             </ToolBar>
         </ToolBarTray>
 
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*" MinHeight="40"/>
                 <RowDefinition Height="5"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*" MinHeight="40"/>
             </Grid.RowDefinitions>
-     
+
             <DockPanel  Grid.Row="0">
 
                 <!--Copy to-->
@@ -73,11 +73,11 @@
                             <MenuItem Name="MoveUpButton" Header="Up" Click="MoveUpButtonMenuItem_OnClick"/>
                             <MenuItem Name="MoveDownButton" Header="Down" />
                         </ContextMenu>
-                        
+
                     </ListView.Resources>
                     <ListView.View>
                         <GridView>
-                            
+
                             <GridViewColumn Header="" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -108,19 +108,20 @@
             </DockPanel>
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Background="Black"/>
             <DockPanel Grid.Row="2" >
-                
+
                 <!--Rule set name; Save, delete buttons-->
                 <Grid Background="#132C33" DockPanel.Dock="Top" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="290"/>
                     </Grid.ColumnDefinitions>
                     <DockPanel Margin="10,5">
                         <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
                         <Button Margin="20,0,0,0" Name="ApplyButton" Click="ApplyButton_OnClick">Apply</Button>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
-                            <ComboBox Name="RulesComboBox" MinWidth="100" VerticalContentAlignment="Center" Background="#D8E3E7">
+                            <ComboBox Name="RulesComboBox" Width="250" VerticalContentAlignment="Center" Background="#D8E3E7" SelectedIndex="0">
+
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Margin="10 0" Foreground="Black" Text="{Binding Value.Name}"/>
@@ -139,10 +140,10 @@
 
 
                 <!--Rules list and Config user control-->
-                <Grid DockPanel.Dock="Bottom">
+                <Grid DockPanel.Dock="Bottom" Name="RulesGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="290" MinWidth="290"/>
+                        <ColumnDefinition Width="290" Name="RuleConfigColumn"/>
                     </Grid.ColumnDefinitions>
 
 
