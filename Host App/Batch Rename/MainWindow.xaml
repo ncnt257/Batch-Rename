@@ -70,7 +70,7 @@
                     <ListView.Resources>
                         <ContextMenu x:Key="ItemContextMenu">
                             <MenuItem Name="RemoveFileButton" Header="Remove" Click="RemoveFileButtonMenuItem_OnClick"/>
-                            <MenuItem Name="MoveUpButton" Header="Up" />
+                            <MenuItem Name="MoveUpButton" Header="Up" Click="MoveUpButtonMenuItem_OnClick"/>
                             <MenuItem Name="MoveDownButton" Header="Down" />
                         </ContextMenu>
                     </ListView.Resources>
@@ -143,7 +143,6 @@
 
 
                     <ListView Name="RulesListView" Grid.Column="0" Background="#D8E3E7" SelectionChanged="RulesListView_SelectionChanged">
-                        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource MaterialDesignListView}"></Style>
                         <!--Cài context menu để chuột phải ở đây-->
                         <ListView.Resources>
                             <ContextMenu x:Key="ItemContextMenu">
