@@ -8,12 +8,12 @@ using System.Windows.Controls;
 namespace AddSuffixRule
 {
     public class AddSuffixOperation : IStringOperation
-    { 
+    {
         public StringArgs Args { get; set; }
 
-        public string Name => "Add suffix rule";
+        public string Name => "Add Suffix Rule";
 
-        public string Description 
+        public string Description
         {
             get
             {
@@ -23,12 +23,14 @@ namespace AddSuffixRule
         }
 
         public UserControl ConfigUC { get; set; }
+        public bool IsChecked { get; set; }
 
         public AddSuffixOperation()
         {
             Args = new AddSuffixArgs();
             ConfigUC = new AddSuffixRuleUC(this);
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -72,6 +74,11 @@ namespace AddSuffixRule
             int idx = origin.IndexOf(extend);
             string originNonExt = origin.Substring(0, idx) + suffix + extend;
             return originNonExt;
+        }
+
+        List<string> IStringOperation.GetStringAgrs()
+        {
+            throw new NotImplementedException();
         }
     }
 }

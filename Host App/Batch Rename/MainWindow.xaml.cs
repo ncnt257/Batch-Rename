@@ -218,6 +218,10 @@ namespace Batch_Rename
         private void RemoveRule_Click(object sender, RoutedEventArgs e)
         {
             var index = RulesListView.SelectedIndex;
+            if(RuleConfigContent.Content == _actions[index].ConfigUC)
+            {
+                RuleConfigContent.Content="";
+            }
             _actions.RemoveAt(index);
         }
     }

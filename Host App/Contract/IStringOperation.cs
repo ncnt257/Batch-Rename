@@ -11,7 +11,7 @@ namespace Contract
         public string Name { get;}
         public string Description { get;}
         public UserControl ConfigUC { get; set; }
-
+        public bool IsChecked { get; set; }
 
         public IStringOperation Clone();
         public string Operate(string origin);
