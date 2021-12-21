@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AddSuffixRule\AddSuffixRule.csproj" />
     <ProjectReference Include="..\Contract\Contract.csproj" />
     <ProjectReference Include="..\RemoveSpacesAtBeginEndRule\RemoveSpacesAtBeginEndRule.csproj" />
   </ItemGroup>

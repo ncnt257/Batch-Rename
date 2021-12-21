@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Contract">
-      <HintPath>..\..\..\Host App\Contract\bin\Debug\net5.0-windows\Contract.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Contract\Contract.csproj" />
   </ItemGroup>
 
 </Project>

@@ -20,7 +20,7 @@ namespace RemoveSpacesAtBeginEndRule
         
         }
         public UserControl ConfigUC { get; set; }
-            
+        public bool IsChecked { get; set;}
         public RemoveSpacesAtBeginEndOperation()
         {
             Args = new RemoveSpacesAtBeginEndAgrs();
