@@ -1,25 +1,13 @@
 ﻿using Contract;
-
-using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Path = System.IO.Path;
 
 namespace Batch_Rename
@@ -38,7 +26,7 @@ namespace Batch_Rename
             InitializeComponent();
         }
 
-        
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FilesListView.ItemsSource = filepaths;
@@ -73,7 +61,7 @@ namespace Batch_Rename
 
             foreach (var filepath in filepaths)
             {
-                filepath.Rename(CopyToTextBlock.Text!=""? CopyToTextBlock.Text:filepath.Path);
+                filepath.Rename(CopyToTextBlock.Text != "" ? CopyToTextBlock.Text : filepath.Path);
             }
         }
 
@@ -136,7 +124,7 @@ namespace Batch_Rename
                             Path = Path.GetDirectoryName(folderName),
                             Name = Path.GetFileName(folderName),
                             PreviewName = Path.GetFileName(folderName),
-                            IsFile=false // folder
+                            IsFile = false // folder
                         };
                         filepaths.Add(newFile);
                     }
@@ -146,52 +134,52 @@ namespace Batch_Rename
             //Microsoft.Win32.OpenFileDialog openFileDialog = new OpenFileDialog();
             //openFileDialog.Multiselect = true;
 
-                ////filter browser
-                //openFileDialog.Filter = "ALL Files|*.*|TEXT FILE | *.txt|PDF FILE |*.pdf|Folders|\n";
+            ////filter browser
+            //openFileDialog.Filter = "ALL Files|*.*|TEXT FILE | *.txt|PDF FILE |*.pdf|Folders|\n";
 
-                //openFileDialog.ValidateNames = false;
-                //openFileDialog.CheckFileExists = false;
-                //openFileDialog.CheckPathExists = true;
+            //openFileDialog.ValidateNames = false;
+            //openFileDialog.CheckFileExists = false;
+            //openFileDialog.CheckPathExists = true;
 
 
 
-                //// Always default to Folder Selection.
-                //openFileDialog.FileName = System.IO.Path.GetFileName(openFileDialog.FileName);
-                //bool? response = openFileDialog.ShowDialog();
+            //// Always default to Folder Selection.
+            //openFileDialog.FileName = System.IO.Path.GetFileName(openFileDialog.FileName);
+            //bool? response = openFileDialog.ShowDialog();
 
-                //if (response == true)
-                //{
-                //    int fileCount = openFileDialog.FileNames.Count();
-                //    for (int i = 0; i < fileCount; i++)
-                //    {
-                //        //check if duplicate then abort that choosen file
-                //        bool flag = true;
-                //        for (int j = 0; j < filepaths.Count(); j++)
-                //        {
-                //            if (filepaths[j].FullName == openFileDialog.FileNames[i])
-                //            {
-                //                flag = false;
-                //                break;
-                //            }
-                //        }
-                //        if (flag)
-                //        {
-                //            //add file vao array
-                //            CFile temp = new CFile
-                //            {
-                //                //GetFileName trả về tên file hoặc tên folder lun
-                //                Name = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
-                //                PreviewName = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
-                //                //GetDirectoryName trả về tên đường dẫn đén file hoặc folder đó
-                //                Path = System.IO.Path.GetDirectoryName(openFileDialog.FileNames[i]),
-                //                IsChecked = true
+            //if (response == true)
+            //{
+            //    int fileCount = openFileDialog.FileNames.Count();
+            //    for (int i = 0; i < fileCount; i++)
+            //    {
+            //        //check if duplicate then abort that choosen file
+            //        bool flag = true;
+            //        for (int j = 0; j < filepaths.Count(); j++)
+            //        {
+            //            if (filepaths[j].FullName == openFileDialog.FileNames[i])
+            //            {
+            //                flag = false;
+            //                break;
+            //            }
+            //        }
+            //        if (flag)
+            //        {
+            //            //add file vao array
+            //            CFile temp = new CFile
+            //            {
+            //                //GetFileName trả về tên file hoặc tên folder lun
+            //                Name = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
+            //                PreviewName = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
+            //                //GetDirectoryName trả về tên đường dẫn đén file hoặc folder đó
+            //                Path = System.IO.Path.GetDirectoryName(openFileDialog.FileNames[i]),
+            //                IsChecked = true
 
-                //            };
-                //            filepaths.Add(temp);
-                //        }
+            //            };
+            //            filepaths.Add(temp);
+            //        }
 
-                //    }
-                //}
+            //    }
+            //}
         }
 
         private void AddRule_Click(object sender, RoutedEventArgs e)
@@ -222,9 +210,9 @@ namespace Batch_Rename
         private void RemoveRule_Click(object sender, RoutedEventArgs e)
         {
             var index = RulesListView.SelectedIndex;
-            if(Equals(RuleConfigContent.Content, _actions[index].ConfigUC))
+            if (Equals(RuleConfigContent.Content, _actions[index].ConfigUC))
             {
-                RuleConfigContent.Content="";
+                RuleConfigContent.Content = "";
             }
             _actions.RemoveAt(index);
         }
@@ -248,12 +236,12 @@ namespace Batch_Rename
                         {
                             previewName = stringOperation.Operate(previewName, filepath.IsFile);
                         }
-                        
+
                     }
 
                     filepath.PreviewName = previewName;
                 }
-                
+
             }
         }
     }
