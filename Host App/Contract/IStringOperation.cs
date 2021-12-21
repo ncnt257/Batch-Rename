@@ -14,7 +14,7 @@ namespace Contract
         public bool IsChecked { get; set; }
 
         public IStringOperation Clone();
-        public string Operate(string origin);
+        public string Operate(string origin, bool isFile);
         public void CreateFromRaw(RawRule input);
         public List<string> GetStringAgrs();
         public void DescriptionChangedNotify();

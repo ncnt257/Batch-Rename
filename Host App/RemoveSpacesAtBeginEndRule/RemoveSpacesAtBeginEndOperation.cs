@@ -51,27 +51,21 @@ namespace RemoveSpacesAtBeginEndRule
             throw new NotImplementedException();
         }
 
-        public string Operate(string origin)
+        public string Operate(string origin, bool isFile)
         {
+            if (!isFile)
+            {
+                return origin.Trim();
+            }
+
             Regex ext = new Regex("[.]\\w");
             Match m3 = ext.Match(origin);
-            int extIdx = origin.LastIndexOf(m3.ToString());
-            string extend = origin.Substring(extIdx);
+            int extendIdx = origin.LastIndexOf(m3.ToString());
+            string extend = origin.Substring(extendIdx);
 
-            Regex pattern = new Regex("\\b\\w");
-            Match m = pattern.Match(origin);
-            int startIdx = origin.IndexOf(m.ToString());
-            string removedBeginSpaces = origin.Substring(startIdx);
+            string removedExtendName = origin.Substring(0, extendIdx);
 
-            int lastPoint = removedBeginSpaces.LastIndexOf(".");
-            string removeExtended = removedBeginSpaces.Substring(0, lastPoint);
-
-            Regex pattern2 = new Regex("\\w\\b");
-            Match m2 = pattern2.Match(removeExtended);
-            int endIdx = removeExtended.LastIndexOf(m2.ToString());
-            string result = removeExtended.Substring(0, endIdx + 1);
-
-            return result + extend;
+            return removedExtendName.Trim() + extend;
         }
     }
 }

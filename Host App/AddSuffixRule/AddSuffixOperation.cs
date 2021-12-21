@@ -63,17 +63,19 @@ namespace AddSuffixRule
             throw new NotImplementedException();
         }
 
-        public string Operate(string origin)
+        public string Operate(string origin, bool isFile)
         {
             var args = Args as AddSuffixArgs;
             string suffix = args.Suffix;
-            //string origin = "day la mot bai hat vui.txt";
+            if (!isFile)
+            {
+                return origin + suffix;
+            }
             Regex ext = new Regex("[.]\\w{2,}$");
-            //Match m = ext.Match(origin);
             string extend = ext.Match(origin).ToString();
             int idx = origin.IndexOf(extend);
-            string originNonExt = origin.Substring(0, idx) + suffix + extend;
-            return originNonExt;
+            string newName = origin.Substring(0, idx) + suffix + extend;
+            return newName;
         }
 
         List<string> IStringOperation.GetStringAgrs()
