@@ -31,14 +31,14 @@ namespace Batch_Rename
         //Danh sách files
         //BindingList<string> filepaths = new BindingList<string>();
         BindingList<CFile> filepaths = new BindingList<CFile>();
-
+        Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
+        BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
-        BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FilesListView.ItemsSource = filepaths;
@@ -64,9 +64,7 @@ namespace Batch_Rename
 
                 }
             }
-            RulesComboBox.Items.Clear();
             RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
-            RulesListView.Items.Clear();
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
         }
 
@@ -223,6 +221,31 @@ namespace Batch_Rename
                 RuleConfigContent.Content="";
             }
             _actions.RemoveAt(index);
+        }
+
+        private void MoveUpButtonMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            //temp for dev
+            PreviewTrigger();
+        }
+
+        private void PreviewTrigger()
+        {
+            foreach (var filepath in filepaths)
+            {
+                if (filepath.IsChecked)
+                {
+                    var previewName = filepath.Name;
+                    foreach (var stringOperation in _actions)
+                    {
+                        //if(stringOperation.) check ischeck TODO
+                        previewName = stringOperation.Operate(previewName,filepath.IsFile);
+                    }
+
+                    filepath.PreviewName = previewName;
+                }
+                
+            }
         }
     }
 }
