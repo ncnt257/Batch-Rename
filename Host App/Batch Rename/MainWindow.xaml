@@ -116,10 +116,10 @@
                         <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
                         <Button Margin="20,0,0,0" Name="ApplyButton" Click="ApplyButton_OnClick">Apply</Button>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <ComboBox Name="RulesComboBox" VerticalContentAlignment="Center" Background="#126E82">
+                            <ComboBox Name="RulesComboBox" VerticalContentAlignment="Center" Background="#D8E3E7">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Value.Name}"/>
+                                        <TextBlock Margin="10 0" Foreground="Black" Text="{Binding Value.Name}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>

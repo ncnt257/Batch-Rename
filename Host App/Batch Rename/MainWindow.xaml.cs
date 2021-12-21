@@ -69,14 +69,6 @@ namespace Batch_Rename
 
         }
 
-
-
-
-
-
-
-
-
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
 
@@ -122,6 +114,7 @@ namespace Batch_Rename
                 }
             }
         }
+
         private void FolderExplorerButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -150,10 +143,6 @@ namespace Batch_Rename
                     }
                 }
             }
-
-
-
-
 
             //Microsoft.Win32.OpenFileDialog openFileDialog = new OpenFileDialog();
             //openFileDialog.Multiselect = true;
