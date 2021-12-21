@@ -26,13 +26,24 @@ namespace Batch_Rename
             {
                 if (IsFile)
                 {
-                    if (copyPath == Path)
+                    if (copyPath == Path)//copyPath đc truyền vào là Path tức là người dùng k dùng chức năng copy to
                     {
                         System.IO.File.Move(FullName, $"{copyPath}/{PreviewName}");//ở đây không xài copy overwrite vì khi đổi tên nó thành file khác và đc copy chồng vô
                     }
                     else
                     {
                         System.IO.File.Copy(FullName, $"{copyPath}/{PreviewName}", true);
+                    }
+                }
+                else
+                {
+                    if (copyPath == Path)
+                    {
+                        System.IO.Directory.Move(FullName, $"{copyPath}/{PreviewName}");
+                    }
+                    else
+                    {
+                        Utility.CopyFilesRecursively(FullName, $"{copyPath}/{PreviewName}");
                     }
                 }
             }

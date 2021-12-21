@@ -222,6 +222,7 @@ namespace Batch_Rename
 
         private void MoveUpButtonMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            //temp for dev
             PreviewTrigger();
         }
 
@@ -229,13 +230,18 @@ namespace Batch_Rename
         {
             foreach (var filepath in filepaths)
             {
-                var previewName = filepath.Name;
-                foreach (var stringOperation in _actions)
+                if (filepath.IsChecked)
                 {
-                    previewName = stringOperation.Operate(previewName);
-                }
+                    var previewName = filepath.Name;
+                    foreach (var stringOperation in _actions)
+                    {
+                        //if(stringOperation.) check ischeck TODO
+                        previewName = stringOperation.Operate(previewName);
+                    }
 
-                filepath.PreviewName = previewName;
+                    filepath.PreviewName = previewName;
+                }
+                
             }
         }
     }

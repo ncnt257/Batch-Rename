@@ -60,7 +60,7 @@
                 <StackPanel   Background="#126E82" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
                         <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0"></TextBlock>
+                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0">C:\Users\ThinkPro\OneDrive\Desktop\temp for P1 Copy</TextBlock>
                         <Button Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328">Disable Copy To</Button>
                     </StackPanel>
                 </StackPanel>
@@ -73,9 +73,11 @@
                             <MenuItem Name="MoveUpButton" Header="Up" Click="MoveUpButtonMenuItem_OnClick"/>
                             <MenuItem Name="MoveDownButton" Header="Down" />
                         </ContextMenu>
+                        
                     </ListView.Resources>
                     <ListView.View>
                         <GridView>
+                            
                             <GridViewColumn Header="" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -85,7 +87,7 @@
                             </GridViewColumn>
                             <GridViewColumn Header="Check" Width="auto">
                                 <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate >
                                         <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -98,6 +100,7 @@
                     </ListView.View>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                         </Style>
                     </ListView.ItemContainerStyle>
