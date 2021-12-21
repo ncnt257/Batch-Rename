@@ -66,7 +66,6 @@ namespace Batch_Rename
             }
             RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
-
         }
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
@@ -217,6 +216,10 @@ namespace Batch_Rename
         private void RemoveRule_Click(object sender, RoutedEventArgs e)
         {
             var index = RulesListView.SelectedIndex;
+            if(RuleConfigContent.Content == _actions[index].ConfigUC)
+            {
+                RuleConfigContent.Content="";
+            }
             _actions.RemoveAt(index);
         }
 

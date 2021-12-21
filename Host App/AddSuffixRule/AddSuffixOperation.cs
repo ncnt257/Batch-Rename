@@ -8,12 +8,12 @@ using System.Windows.Controls;
 namespace AddSuffixRule
 {
     public class AddSuffixOperation : IStringOperation
-    { 
+    {
         public StringArgs Args { get; set; }
 
-        public string Name => "Add suffix rule";
+        public string Name => "Add Suffix Rule";
 
-        public string Description 
+        public string Description
         {
             get
             {
@@ -23,12 +23,14 @@ namespace AddSuffixRule
         }
 
         public UserControl ConfigUC { get; set; }
+        public bool IsChecked { get; set; }
 
         public AddSuffixOperation()
         {
             Args = new AddSuffixArgs();
             ConfigUC = new AddSuffixRuleUC(this);
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -61,17 +63,24 @@ namespace AddSuffixRule
             throw new NotImplementedException();
         }
 
-        public string Operate(string origin)
+        public string Operate(string origin, bool isFile)
         {
             var args = Args as AddSuffixArgs;
             string suffix = args.Suffix;
-            //string origin = "day la mot bai hat vui.txt";
+            if (!isFile)
+            {
+                return origin + suffix;
+            }
             Regex ext = new Regex("[.]\\w{2,}$");
-            //Match m = ext.Match(origin);
             string extend = ext.Match(origin).ToString();
             int idx = origin.IndexOf(extend);
-            string originNonExt = origin.Substring(0, idx) + suffix + extend;
-            return originNonExt;
+            string newName = origin.Substring(0, idx) + suffix + extend;
+            return newName;
+        }
+
+        List<string> IStringOperation.GetStringAgrs()
+        {
+            throw new NotImplementedException();
         }
     }
 }

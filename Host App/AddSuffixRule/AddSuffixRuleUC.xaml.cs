@@ -18,7 +18,6 @@ namespace AddSuffixRule
     /// <summary>
     /// Interaction logic for AddSuffixRuleUC.xaml
     /// </summary>
-
     public partial class AddSuffixRuleUC : UserControl
     {
         private readonly AddSuffixOperation _operation;

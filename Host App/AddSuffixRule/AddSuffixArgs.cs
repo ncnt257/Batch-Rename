@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AddSuffixRule
 {
-    public class AddSuffixArgs:StringArgs
+    public class AddSuffixArgs : StringArgs
     {
         public string Suffix { get; set; }
     }
