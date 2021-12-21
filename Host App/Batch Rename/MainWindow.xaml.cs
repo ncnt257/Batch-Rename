@@ -68,17 +68,7 @@ namespace Batch_Rename
             RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
             RulesListView.Items.Clear();
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
-
-
         }
-
-
-
-
-
-
-
-
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -124,13 +114,7 @@ namespace Batch_Rename
                     }
                 }
             }
-
-
-
         }
-
-
-
 
         private void FolderExplorerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -160,10 +144,6 @@ namespace Batch_Rename
                     }
                 }
             }
-
-
-
-
 
             //Microsoft.Win32.OpenFileDialog openFileDialog = new OpenFileDialog();
             //openFileDialog.Multiselect = true;
