@@ -239,7 +239,7 @@ namespace Batch_Rename
                     foreach (var stringOperation in _actions)
                     {
                         //if(stringOperation.) check ischeck TODO
-                        previewName = stringOperation.Operate(previewName);
+                        previewName = stringOperation.Operate(previewName,filepath.IsFile);
                     }
 
                     filepath.PreviewName = previewName;
