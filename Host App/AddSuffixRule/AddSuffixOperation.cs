@@ -1,5 +1,4 @@
 using Contract;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -29,6 +28,7 @@ namespace AddSuffixRule
         {
             Args = new AddSuffixArgs();
             ConfigUC = new AddSuffixRuleUC(this);
+            ConfigUC.DataContext = this.Args;
         }
 
 
@@ -49,7 +49,12 @@ namespace AddSuffixRule
 
         public void CreateFromRaw(RawRule input)
         {
-            throw new NotImplementedException();
+            IsChecked = input.IsChecked;
+            Args = new AddSuffixArgs()
+            {
+                Suffix = input.AgrList[0]
+            };
+            ConfigUC.DataContext = this.Args;
         }
 
         public void DescriptionChangedNotify()
@@ -60,7 +65,10 @@ namespace AddSuffixRule
 
         public List<string> GetStringAgrs()
         {
-            throw new NotImplementedException();
+            List<string> resultList = new List<string>();
+            var args = Args as AddSuffixArgs;
+            resultList.Add(args.Suffix);
+            return resultList;
         }
 
         public string Operate(string origin, bool isFile)
@@ -80,7 +88,10 @@ namespace AddSuffixRule
 
         List<string> IStringOperation.GetStringAgrs()
         {
-            throw new NotImplementedException();
+            List<string> resultList = new List<string>();
+            var args = Args as AddSuffixArgs;
+            resultList.Add(args.Suffix);
+            return resultList;
         }
     }
 }
