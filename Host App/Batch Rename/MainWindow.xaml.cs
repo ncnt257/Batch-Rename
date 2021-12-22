@@ -1,13 +1,13 @@
 ﻿using Contract;
+using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Serialization;
 using Path = System.IO.Path;
 
 namespace Batch_Rename
@@ -18,9 +18,11 @@ namespace Batch_Rename
         //Biến global
         //Danh sách files
         //BindingList<string> filepaths = new BindingList<string>();
+        public string sFileName;
         BindingList<CFile> filepaths = new BindingList<CFile>();
-        Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
+        public Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
         BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
+        RenameRuleFactory renameRuleFactory = new RenameRuleFactory();
         public MainWindow()
         {
             InitializeComponent();
@@ -29,30 +31,9 @@ namespace Batch_Rename
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             FilesListView.ItemsSource = filepaths;
-
-
-            string exePath = AppDomain.CurrentDomain.BaseDirectory;
-            var fis = new DirectoryInfo(exePath).GetFiles("*.dll");
-
-
-            foreach (var f in fis) // Lần lượt duyệt qua các file dll
-            {
-                var assembly = Assembly.LoadFile(f.FullName);
-                var types = assembly.GetTypes();
-                foreach (var t in types)
-                {
-
-                    if (t.IsClass && typeof(IStringOperation).IsAssignableFrom(t))
-                    {
-                        IStringOperation c = (IStringOperation)Activator.CreateInstance(t);//do các luật có hàm tạo, new Args rồi nên không cần load class Args như trước nữa
-
-                        _prototypes.Add(c.Name, c);//Replace, AddPrefix,...
-                    }
-
-                }
-            }
-            RulesComboBox.ItemsSource = _prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
+            RulesComboBox.ItemsSource = renameRuleFactory.Prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
         }
 
@@ -242,6 +223,103 @@ namespace Batch_Rename
                     filepath.PreviewName = previewName;
                 }
 
+            }
+        }
+
+        private void DeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            _actions.Clear();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<RawRule>));
+            FileStream stream = File.Create(sFileName);
+            List<RawRule> outputFileRules = new List<RawRule>();
+            foreach (var action in _actions)
+            {
+                RawRule temp = new RawRule()
+                {
+                    RuleName = action.Name,
+                    AgrList = action.GetStringAgrs(),
+                    IsChecked = action.IsChecked
+                };
+                outputFileRules.Add(temp);
+            }
+            serializer.Serialize(stream, outputFileRules);
+            stream.Dispose();
+        }
+
+        private void ChoosePresetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _actions.Clear();
+            OpenFileDialog browseDialog = new OpenFileDialog();
+            browseDialog.Filter = "All Files (*.*)|*.*";
+            browseDialog.FilterIndex = 1;
+            browseDialog.Multiselect = false;
+
+            if (browseDialog.ShowDialog() != true)
+            {
+                MessageBox.Show("Can't open file !");
+            }
+
+            sFileName = browseDialog.FileName;
+            RuleSetNameLabel.Content = Path.GetFileName(sFileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<RawRule>));
+            FileStream streamRead = File.OpenRead(sFileName);
+            var results = (List<RawRule>)(serializer.Deserialize(streamRead));
+
+            foreach (var rawRule in results)
+            {
+                var temp = renameRuleFactory.Create(rawRule);
+                _actions.Add(temp);
+            }
+        }
+
+        private void SaveAs_click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var filePath = saveFileDialog.FileName;
+                RuleSetNameLabel.Content = Path.GetFileName(sFileName);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<RawRule>));
+                FileStream stream = File.Create(filePath);
+                List<RawRule> outputFileRules = new List<RawRule>();
+                foreach (var action in _actions)
+                {
+                    RawRule temp = new RawRule()
+                    {
+                        IsChecked = action.IsChecked,
+                        RuleName = action.Name,
+                        AgrList = action.GetStringAgrs()
+                    };
+                    outputFileRules.Add(temp);
+                }
+                serializer.Serialize(stream, outputFileRules);
+                stream.Dispose();
+            }
+        }
+
+        private void MoveRuleUpButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = RulesListView.SelectedIndex;
+            if (index > 0)
+            {
+                var temp = _actions[index];
+                _actions.RemoveAt(index);
+                _actions.Insert(index - 1, temp);
+            }
+        }
+
+        private void MoveRuleDownButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = RulesListView.SelectedIndex;
+            if (index < _actions.Count - 1)
+            {
+                var temp = _actions[index];
+                _actions.RemoveAt(index);
+                _actions.Insert(index + 1, temp);
             }
         }
     }
