@@ -1,4 +1,5 @@
 using Contract;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -10,7 +11,7 @@ namespace AddSuffixRule
     {
         public StringArgs Args { get; set; }
 
-        public string Name => "Add Suffix Rule";
+        public string Name => "Add Suffix";
 
         public string Description
         {
@@ -21,8 +22,15 @@ namespace AddSuffixRule
             }
         }
 
-        public UserControl ConfigUC { get; set; }
-        public bool IsChecked { get; set; }
+        public UserControl ConfigUC
+        {
+            get; set;
+        }
+        public bool IsChecked
+        {
+            get;
+            set;
+        }
 
         public AddSuffixOperation()
         {
@@ -31,9 +39,7 @@ namespace AddSuffixRule
             ConfigUC.DataContext = this.Args;
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public IStringOperation Clone()
         {
             var oldArgs = Args as AddSuffixArgs;
@@ -42,7 +48,8 @@ namespace AddSuffixRule
                 Args = new AddSuffixArgs()
                 {
                     Suffix = oldArgs.Suffix
-                }
+                },
+                IsChecked = true
             };
             return clone;
         }

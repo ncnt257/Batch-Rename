@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ namespace Contract
         public string Description { get; }
         public UserControl ConfigUC { get; set; }
         public bool IsChecked { get; set; }
+
 
         public IStringOperation Clone();
         public string Operate(string origin, bool isFile);

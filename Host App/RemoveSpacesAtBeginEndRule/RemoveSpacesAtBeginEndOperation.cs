@@ -9,7 +9,7 @@ namespace RemoveSpacesAtBeginEndRule
     public class RemoveSpacesAtBeginEndOperation : IStringOperation
     {
         public StringArgs Args { get; set; }
-        public string Name { get => "Remove Spaces At Begin And End Rule"; }
+        public string Name { get => "Trim"; }
         public string Description
         {
             get
@@ -19,7 +19,11 @@ namespace RemoveSpacesAtBeginEndRule
 
         }
         public UserControl ConfigUC { get; set; }
-        public bool IsChecked { get; set; }
+        public bool IsChecked 
+        { 
+            get;
+            set;
+        }
         public RemoveSpacesAtBeginEndOperation()
         {
             Args = new RemoveSpacesAtBeginEndAgrs();
@@ -31,6 +35,7 @@ namespace RemoveSpacesAtBeginEndRule
         public IStringOperation Clone()
         {
             var clone = new RemoveSpacesAtBeginEndOperation();
+            clone.IsChecked = true;
             return clone;
         }
 

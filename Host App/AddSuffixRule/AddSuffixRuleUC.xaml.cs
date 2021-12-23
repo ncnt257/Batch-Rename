@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Contract;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AddSuffixRule
@@ -9,7 +11,6 @@ namespace AddSuffixRule
     public partial class AddSuffixRuleUC : UserControl
     {
         private readonly AddSuffixOperation _operation;
-
         public AddSuffixRuleUC(AddSuffixOperation operation)
         {
             InitializeComponent();

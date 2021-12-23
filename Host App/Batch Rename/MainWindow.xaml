@@ -60,12 +60,8 @@
                 <StackPanel   Background="#126E82" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
                         <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0">
-                            C:\Users\ThinkPro\OneDrive\Desktop\temp for P1 Copy
-                        </TextBlock>
-                        <Button Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328">
-                            Disable Copy To
-                        </Button>
+                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0"/>
+                        <Button x:Name="DisableCopyToBtn" Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328" Content="Disable Copy To" Click="DisableCopyToBtn_Click"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -75,13 +71,12 @@
                         <ContextMenu x:Key="ItemContextMenu">
                             <MenuItem Name="RemoveFileButton" Header="Remove" Click="RemoveFileButtonMenuItem_OnClick"/>
                             <MenuItem Name="MoveUpButton" Header="Up" Click="MoveUpButtonMenuItem_OnClick"/>
-                            <MenuItem Name="MoveDownButton" Header="Down" />
+                            <MenuItem Name="MoveDownButton" Header="Down" Click="MoveDownButton_Click" />
                         </ContextMenu>
 
                     </ListView.Resources>
                     <ListView.View>
                         <GridView>
-
                             <GridViewColumn Header="" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -92,7 +87,7 @@
                             <GridViewColumn Header="Check" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
-                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
+                                        <CheckBox x:Name="FileCheckBox" Unchecked="FileCheckBox_Unchecked" Checked="FileCheckBox_Checked" HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -155,7 +150,7 @@
                         <!--Cài context menu để chuột phải ở đây-->
                         <ListView.Resources>
                             <ContextMenu x:Key="ItemContextMenu">
-                                <MenuItem Name="RemoveRule" Header="Delete" Click="RemoveRule_Click"/>
+                                <MenuItem Name="RemoveRule" Header="Remove" Click="RemoveRule_Click"/>
                                 <MenuItem Name="MoveRuleUpButton" Header="Move Up" Click="MoveRuleUpButton_OnClick"/>
                                 <MenuItem Name="MoveRuleDownButton" Header="Move Down" Click="MoveRuleDownButton_OnClick"/>
                             </ContextMenu>
@@ -168,13 +163,13 @@
                                 <GridViewColumn Width="auto" Header="Checked">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate >
-                                            <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
+                                            <CheckBox x:Name="CheckToUse" Checked="CheckToUse_Checked" Unchecked="CheckToUse_Unchecked" HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Width="200" Header="Rule name" DisplayMemberBinding="{Binding Path=Name}" />
                                 <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
-                                
+
                             </GridView>
                         </ListView.View>
 
@@ -189,7 +184,6 @@
                         <!--Put User Control here-->
 
                     </ScrollViewer>
-
                     <!--Để resize grid-->
                     <GridSplitter Grid.Column="1" Width="5" Background="Black" HorizontalAlignment="Left"></GridSplitter>
 

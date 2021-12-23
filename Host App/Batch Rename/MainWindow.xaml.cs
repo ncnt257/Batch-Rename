@@ -1,6 +1,7 @@
 ﻿using Contract;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -23,15 +24,13 @@ namespace Batch_Rename
         public Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
         BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
         RenameRuleFactory renameRuleFactory = new RenameRuleFactory();
+
         public MainWindow()
         {
             InitializeComponent();
         }
-
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             FilesListView.ItemsSource = filepaths;
             RulesComboBox.ItemsSource = renameRuleFactory.Prototypes;//bản mẫu cho người dùng xem, nếu người dùng Add thì clone ra
             RulesListView.ItemsSource = _actions;//là Binding list, thêm xóa sửa _action thì giao diện tự cập nhập
@@ -39,17 +38,20 @@ namespace Batch_Rename
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
-
+            var count = 0;
             foreach (var filepath in filepaths)
             {
+                if (filepath.IsChecked) count++;
                 filepath.Rename(CopyToTextBlock.Text != "" ? CopyToTextBlock.Text : filepath.Path);
             }
+            MessageBox.Show($"Rename {count} file(s)/folder(s) successfully");
+            filepaths.Clear();
         }
-
 
         private void RemoveFileButtonMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             filepaths.RemoveAt(FilesListView.SelectedIndex);
+            PreviewTrigger(); 
         }
 
         //Browse files
@@ -81,6 +83,7 @@ namespace Batch_Rename
                     }
                 }
             }
+            PreviewTrigger();
         }
 
         private void FolderExplorerButton_Click(object sender, RoutedEventArgs e)
@@ -110,6 +113,7 @@ namespace Batch_Rename
                         filepaths.Add(newFile);
                     }
                 }
+                PreviewTrigger();
             }
 
             /*Microsoft.Win32.OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -167,7 +171,6 @@ namespace Batch_Rename
         {
             CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
             folderDialog.IsFolderPicker = true;
-            //folderDialog.Multiselect = true;
 
             if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -182,6 +185,7 @@ namespace Batch_Rename
                 RulesComboBox.SelectedItem is KeyValuePair<string, IStringOperation> ? (KeyValuePair<string, IStringOperation>)RulesComboBox.SelectedItem : default;//selected item có kiểu keyValue pair<string,IStringOperation>, ép kiểu lại để xài
             var action = element.Value;//value là luật ( IStringOperation)
             _actions.Add(action.Clone());
+            PreviewTrigger();
         }
 
         private void RulesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -190,13 +194,13 @@ namespace Batch_Rename
                RulesListView.SelectedItem as IStringOperation;
             if (operation is not null)//Luc mà delete xong, thằng event này sủa dơ, nên cần check null để app k crash
             {
+                var userControl = operation.ConfigUC;
                 RuleConfigContent.Content = operation.ConfigUC;
                 var s = new GridLength(290);
                 if (RuleConfigColumn.Width.Value < 290)
                 {
                     RuleConfigColumn.Width = s;
                 }
-
             }
         }
 
@@ -208,15 +212,22 @@ namespace Batch_Rename
                 RuleConfigContent.Content = "";
             }
             _actions.RemoveAt(index);
+            PreviewTrigger();
         }
 
         private void MoveUpButtonMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            //temp for dev
+            var index = FilesListView.SelectedIndex;
+            if (index > 0)
+            {
+                var temp = filepaths[index];
+                filepaths.RemoveAt(index);
+                filepaths.Insert(index - 1, temp);
+            }
             PreviewTrigger();
         }
 
-        private void PreviewTrigger()
+        public void PreviewTrigger()
         {
             foreach (var filepath in filepaths)
             {
@@ -231,8 +242,11 @@ namespace Batch_Rename
                         }
 
                     }
-
                     filepath.PreviewName = previewName;
+                }
+                else
+                {
+                    filepath.PreviewName = filepath.Name;
                 }
 
             }
@@ -286,6 +300,7 @@ namespace Batch_Rename
                 var temp = renameRuleFactory.Create(rawRule);
                 _actions.Add(temp);
             }
+            PreviewTrigger();
         }
 
         private void SaveAs_click(object sender, RoutedEventArgs e)
@@ -322,8 +337,8 @@ namespace Batch_Rename
                 _actions.RemoveAt(index);
                 _actions.Insert(index - 1, temp);
             }
+            PreviewTrigger();
         }
-
         private void MoveRuleDownButton_OnClick(object sender, RoutedEventArgs e)
         {
             var index = RulesListView.SelectedIndex;
@@ -333,8 +348,45 @@ namespace Batch_Rename
                 _actions.RemoveAt(index);
                 _actions.Insert(index + 1, temp);
             }
+            PreviewTrigger();
         }
 
-       
+        private void DisableCopyToBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CopyToTextBlock.Text = "";
+        }
+
+        private void FileCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            PreviewTrigger();
+        }
+
+        private void CheckToUse_Checked(object sender, RoutedEventArgs e)
+        {
+
+            PreviewTrigger();
+        }
+
+        private void CheckToUse_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PreviewTrigger();
+        }
+
+        private void FileCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PreviewTrigger();
+        }
+
+        private void MoveDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            var index = FilesListView.SelectedIndex;
+            if (index < filepaths.Count - 1)
+            {
+                var temp = filepaths[index];
+                filepaths.RemoveAt(index);
+                filepaths.Insert(index + 1, temp);
+            }
+            PreviewTrigger();
+        }
     }
 }
