@@ -9,10 +9,9 @@ namespace AddSuffixRule
 {
     public class AddSuffixOperation : IStringOperation
     {
+        public event IStringOperation.Trigger PreviewTriggerEvent;
         public StringArgs Args { get; set; }
-
         public string Name => "Add Suffix";
-
         public string Description
         {
             get
@@ -49,7 +48,8 @@ namespace AddSuffixRule
                 {
                     Suffix = oldArgs.Suffix
                 },
-                IsChecked = true
+                IsChecked = true,
+                PreviewTriggerEvent = this.PreviewTriggerEvent
             };
             return clone;
         }
@@ -68,6 +68,7 @@ namespace AddSuffixRule
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs("Description"));
+            PreviewTriggerEvent?.Invoke();
         }
 
         public List<string> GetStringAgrs()

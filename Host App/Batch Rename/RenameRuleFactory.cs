@@ -10,7 +10,7 @@ namespace Batch_Rename
     {
         public Dictionary<string, IStringOperation> Prototypes = new Dictionary<string, IStringOperation>();
 
-        public RenameRuleFactory()
+        public RenameRuleFactory(MainWindow mainWindow)
         {
             string exePath = AppDomain.CurrentDomain.BaseDirectory;
             var fis = new DirectoryInfo(exePath).GetFiles("*.dll");
@@ -26,7 +26,7 @@ namespace Batch_Rename
                     if (t.IsClass && typeof(IStringOperation).IsAssignableFrom(t))
                     {
                         IStringOperation c = (IStringOperation)Activator.CreateInstance(t);//do các luật có hàm tạo, new Args rồi nên không cần load class Args như trước nữa
-
+                        c.PreviewTriggerEvent += mainWindow.PreviewTrigger;
                         Prototypes.Add(c.Name, c);//Replace, AddPrefix,...
                     }
 
