@@ -1,7 +1,6 @@
 ﻿using Contract;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -19,7 +18,7 @@ namespace Batch_Rename
         //Biến global
         //Danh sách files
         //BindingList<string> filepaths = new BindingList<string>();
-        public string sFileName;
+        public string sFileName = "";
         BindingList<CFile> filepaths = new BindingList<CFile>();
         public Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
         BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
@@ -52,7 +51,7 @@ namespace Batch_Rename
         private void RemoveFileButtonMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             filepaths.RemoveAt(FilesListView.SelectedIndex);
-            PreviewTrigger(); 
+            PreviewTrigger();
         }
 
         //Browse files
@@ -261,6 +260,11 @@ namespace Batch_Rename
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            if (sFileName == "")
+            {
+                SaveAs_click(sender, e);
+                return;
+            }
             XmlSerializer serializer = new XmlSerializer(typeof(List<RawRule>));
             FileStream stream = File.Create(sFileName);
             List<RawRule> outputFileRules = new List<RawRule>();
@@ -289,6 +293,7 @@ namespace Batch_Rename
             if (browseDialog.ShowDialog() != true)
             {
                 MessageBox.Show("Can't open file !");
+                return;
             }
 
             sFileName = browseDialog.FileName;
