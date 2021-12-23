@@ -6,6 +6,8 @@ namespace Contract
 {
     public interface IStringOperation : INotifyPropertyChanged
     {
+        public delegate void Trigger();
+        public event Trigger PreviewTriggerEvent;
         public StringArgs Args { get; }
         public string Name { get; }
         public string Description { get; }

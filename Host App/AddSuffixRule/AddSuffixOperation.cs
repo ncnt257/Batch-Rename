@@ -8,6 +8,7 @@ namespace AddSuffixRule
 {
     public class AddSuffixOperation : IStringOperation
     {
+        public event IStringOperation.Trigger PreviewTriggerEvent;
         public StringArgs Args { get; set; }
 
         public string Name => "Add Suffix Rule";
@@ -36,14 +37,19 @@ namespace AddSuffixRule
 
         public IStringOperation Clone()
         {
+            
             var oldArgs = Args as AddSuffixArgs;
             var clone = new AddSuffixOperation()
             {
+                IsChecked = true,
                 Args = new AddSuffixArgs()
                 {
                     Suffix = oldArgs.Suffix
-                }
+                },
+                PreviewTriggerEvent = this.PreviewTriggerEvent
+                
             };
+
             return clone;
         }
 
@@ -61,6 +67,7 @@ namespace AddSuffixRule
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs("Description"));
+            PreviewTriggerEvent?.Invoke();
         }
 
         public List<string> GetStringAgrs()
