@@ -256,6 +256,7 @@ namespace Batch_Rename
         private void DeleteAll_Click(object sender, RoutedEventArgs e)
         {
             _actions.Clear();
+            PreviewTrigger();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
