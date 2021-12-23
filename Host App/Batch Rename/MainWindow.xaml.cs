@@ -23,11 +23,12 @@ namespace Batch_Rename
         BindingList<CFile> filepaths = new BindingList<CFile>();
         public Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
         BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
-        RenameRuleFactory renameRuleFactory = new RenameRuleFactory();
+        private RenameRuleFactory renameRuleFactory;
 
         public MainWindow()
         {
             InitializeComponent();
+            renameRuleFactory = new RenameRuleFactory(this);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

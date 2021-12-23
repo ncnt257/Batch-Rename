@@ -8,6 +8,7 @@ namespace RemoveSpacesAtBeginEndRule
 {
     public class RemoveSpacesAtBeginEndOperation : IStringOperation
     {
+        public event IStringOperation.Trigger PreviewTriggerEvent;
         public StringArgs Args { get; set; }
         public string Name { get => "Trim"; }
         public string Description
@@ -34,8 +35,11 @@ namespace RemoveSpacesAtBeginEndRule
 
         public IStringOperation Clone()
         {
-            var clone = new RemoveSpacesAtBeginEndOperation();
-            clone.IsChecked = true;
+            var clone = new RemoveSpacesAtBeginEndOperation()
+            {
+                IsChecked = true,
+                PreviewTriggerEvent = this.PreviewTriggerEvent
+            };
             return clone;
         }
 
@@ -49,6 +53,7 @@ namespace RemoveSpacesAtBeginEndRule
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs("Description"));
+            PreviewTriggerEvent?.Invoke();
         }
 
         public List<string> GetStringAgrs()
