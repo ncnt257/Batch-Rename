@@ -35,7 +35,7 @@
                         <Label Content="Choose Preset" FontSize="15"/>
                     </StackPanel>
                 </Button>
-                <Button Name="CopyToButton" >
+                <Button Name="CopyToButton" Click="CopyToButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/copy-to.png" Width="20" Margin="0 0 5 0"/>
                         <Label Content="Copy to" FontSize="15"/>
@@ -60,8 +60,12 @@
                 <StackPanel   Background="#126E82" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
                         <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0">C:\Users\ThinkPro\OneDrive\Desktop\temp for P1 Copy</TextBlock>
-                        <Button Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328">Disable Copy To</Button>
+                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0">
+                            C:\Users\ThinkPro\OneDrive\Desktop\temp for P1 Copy
+                        </TextBlock>
+                        <Button Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328">
+                            Disable Copy To
+                        </Button>
                     </StackPanel>
                 </StackPanel>
 

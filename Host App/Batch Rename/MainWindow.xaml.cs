@@ -112,55 +112,68 @@ namespace Batch_Rename
                 }
             }
 
-            //Microsoft.Win32.OpenFileDialog openFileDialog = new OpenFileDialog();
-            //openFileDialog.Multiselect = true;
+            /*Microsoft.Win32.OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
 
-            ////filter browser
-            //openFileDialog.Filter = "ALL Files|*.*|TEXT FILE | *.txt|PDF FILE |*.pdf|Folders|\n";
+            filter browser
+            openFileDialog.Filter = "ALL Files|*.*|TEXT FILE | *.txt|PDF FILE |*.pdf|Folders|\n";
 
-            //openFileDialog.ValidateNames = false;
-            //openFileDialog.CheckFileExists = false;
-            //openFileDialog.CheckPathExists = true;
+            openFileDialog.ValidateNames = false;
+            openFileDialog.CheckFileExists = false;
+            openFileDialog.CheckPathExists = true;
 
 
 
-            //// Always default to Folder Selection.
-            //openFileDialog.FileName = System.IO.Path.GetFileName(openFileDialog.FileName);
-            //bool? response = openFileDialog.ShowDialog();
+            Always default to Folder Selection.
+            openFileDialog.FileName = System.IO.Path.GetFileName(openFileDialog.FileName);
+            bool? response = openFileDialog.ShowDialog();
 
-            //if (response == true)
-            //{
-            //    int fileCount = openFileDialog.FileNames.Count();
-            //    for (int i = 0; i < fileCount; i++)
-            //    {
-            //        //check if duplicate then abort that choosen file
-            //        bool flag = true;
-            //        for (int j = 0; j < filepaths.Count(); j++)
-            //        {
-            //            if (filepaths[j].FullName == openFileDialog.FileNames[i])
-            //            {
-            //                flag = false;
-            //                break;
-            //            }
-            //        }
-            //        if (flag)
-            //        {
-            //            //add file vao array
-            //            CFile temp = new CFile
-            //            {
-            //                //GetFileName trả về tên file hoặc tên folder lun
-            //                Name = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
-            //                PreviewName = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
-            //                //GetDirectoryName trả về tên đường dẫn đén file hoặc folder đó
-            //                Path = System.IO.Path.GetDirectoryName(openFileDialog.FileNames[i]),
-            //                IsChecked = true
+            if (response == true)
+            {
+                int fileCount = openFileDialog.FileNames.Count();
+                for (int i = 0; i < fileCount; i++)
+                {
+                    //check if duplicate then abort that choosen file
+                    bool flag = true;
+                    for (int j = 0; j < filepaths.Count(); j++)
+                    {
+                        if (filepaths[j].FullName == openFileDialog.FileNames[i])
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag)
+                    {
+                        //add file vao array
+                        CFile temp = new CFile
+                        {
+                            //GetFileName trả về tên file hoặc tên folder lun
+                            Name = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
+                            PreviewName = System.IO.Path.GetFileName(openFileDialog.FileNames[i]),
+                            //GetDirectoryName trả về tên đường dẫn đén file hoặc folder đó
+                            Path = System.IO.Path.GetDirectoryName(openFileDialog.FileNames[i]),
+                            IsChecked = true
 
-            //            };
-            //            filepaths.Add(temp);
-            //        }
+                        };
+                        filepaths.Add(temp);
+                    }
 
-            //    }
-            //}
+                }
+            }*/
+        }
+
+        private void CopyToButton_Click(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
+            folderDialog.IsFolderPicker = true;
+            //folderDialog.Multiselect = true;
+
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                var folderName = folderDialog.FileName;
+                CopyToTextBlock.Text = folderName;
+            }
         }
 
         private void AddRule_Click(object sender, RoutedEventArgs e)
@@ -170,7 +183,6 @@ namespace Batch_Rename
             var action = element.Value;//value là luật ( IStringOperation)
             _actions.Add(action.Clone());
         }
-
 
         private void RulesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -322,5 +334,7 @@ namespace Batch_Rename
                 _actions.Insert(index + 1, temp);
             }
         }
+
+       
     }
 }
