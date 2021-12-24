@@ -1,4 +1,4 @@
-﻿using Contract;
+using Contract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -94,12 +94,5 @@ namespace AddSuffixRule
             return newName;
         }
 
-        List<string> IStringOperation.GetStringAgrs()
-        {
-            List<string> resultList = new List<string>();
-            var args = Args as AddSuffixArgs;
-            resultList.Add(args.Suffix);
-            return resultList;
-        }
     }
 }
