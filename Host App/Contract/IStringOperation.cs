@@ -10,7 +10,7 @@ namespace Contract
         public delegate void Trigger();
 
         public event Trigger PreviewTriggerEvent;
-        public StringArgs Args { get; }
+        public StringArgs Args { get; set; }
         public string Name { get; }
         public string Description { get; }
         public UserControl ConfigUC { get; set; }
