@@ -29,7 +29,6 @@ namespace Batch_Rename
                         c.PreviewTriggerEvent += mainWindow.PreviewTrigger;
                         Prototypes.Add(c.Name, c);//Replace, AddPrefix,...
                     }
-
                 }
             }
         }
