@@ -6,7 +6,7 @@ using Contract;
 
 namespace AddCounterRule
 {
-    public class AddCounterOperation:IStringOperation
+    public class AddCounterOperation : IStringOperation
     {
         public AddCounterOperation()
         {
@@ -21,15 +21,23 @@ namespace AddCounterRule
         {
             get
             {
+                if (!IsValidParams) return "";
                 var args = Args as AddCounterArgs;
                 return $"Add {args.Digit} digit counter from {args.Start} with step of {args.Step}";
             }
         }
         public UserControl ConfigUC { get; set; }
         public bool IsChecked { get; set; }
-        
 
-        
+        public bool IsValidParams
+        {
+            get
+            {
+                var args = Args as AddCounterArgs;
+                return (args.Start is not null || args.Step is not null || args.Digit is not null);
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public IStringOperation Clone()
         {
@@ -85,10 +93,45 @@ namespace AddCounterRule
                 new PropertyChangedEventArgs("Description"));
             PreviewTriggerEvent?.Invoke();
         }
+        public void ResetRule()
+        {
+            var args = Args as AddCounterArgs;
+            args.Counter = args.Start;
+        }
         public string Operate(string origin, bool isFile)
         {
-            throw new NotImplementedException();
+            var args = Args as AddCounterArgs;
+            if (!IsValidParams) return origin;
+            if (isFile)
+            {
+                int index = origin.LastIndexOf(".");
+                string count = args.Counter.ToString();
+                if (count.Length < args.Digit)
+                {
+                    for (int i = count.Length; i < args.Digit; i++)
+                    {
+                        count = count.Insert(0, "0");
+                    }
+                }
+                origin = origin.Insert(index, count);
+            }
+            else
+            {
+                int index = origin.Length;
+                string count = args.Counter.ToString();
+                if (count.Length < args.Digit)
+                {
+                    for (int i = count.Length; i < args.Digit; i++)
+                    {
+                        count = count.Insert(0, "0");
+                    }
+                }
+                origin = origin.Insert(index, count);
+            }
+            args.Counter += args.Step;
+            return origin;
         }
 
+        
     }
 }

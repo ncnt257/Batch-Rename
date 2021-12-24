@@ -1,4 +1,5 @@
-﻿using Contract;
+﻿using System;
+using Contract;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Batch_Rename
         public Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
         BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
         private RenameRuleFactory renameRuleFactory;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -229,6 +230,7 @@ namespace Batch_Rename
 
         public void PreviewTrigger()
         {
+            List<Action> rulesReseter =new List<Action>();
             foreach (var filepath in filepaths)
             {
                 if (filepath.IsChecked)
@@ -239,16 +241,19 @@ namespace Batch_Rename
                         if (stringOperation.IsChecked)
                         {
                             previewName = stringOperation.Operate(previewName, filepath.IsFile);
+                            rulesReseter.Add(stringOperation.ResetRule); //luật counter cần được reset
                         }
 
                     }
                     filepath.PreviewName = previewName;
                 }
-                else
-                {
-                    filepath.PreviewName = filepath.Name;
-                }
 
+
+            }
+
+            foreach (var action in rulesReseter)
+            {
+                action.Invoke();
             }
         }
 
@@ -286,7 +291,7 @@ namespace Batch_Rename
         {
             _actions.Clear();
             OpenFileDialog browseDialog = new OpenFileDialog();
-            browseDialog.Filter = "All Files (*.*)|*.*";
+            browseDialog.Filter = "XML Files (*.xml*)|*.xml*";
             browseDialog.FilterIndex = 1;
             browseDialog.Multiselect = false;
 

@@ -35,18 +35,11 @@ namespace AddCounterRule
         {
             var args = _operation.Args as AddCounterArgs;
             args.Start = AddCounterOperation.ToNullableInt(Param1.Text);
+            args.Counter = AddCounterOperation.ToNullableInt(Param1.Text);
             args.Step = AddCounterOperation.ToNullableInt(Param2.Text);
             args.Digit = AddCounterOperation.ToNullableInt(Param3.Text);
             _operation.DescriptionChangedNotify();//notify thuộc tính description đã thay đổi
 
-            //var args = new AddCounterArgs()
-            //{
-            //    Start = AddCounterOperation.ToNullableInt(Param1.Text),
-            //    Step = AddCounterOperation.ToNullableInt(Param2.Text),
-            //    Digit = AddCounterOperation.ToNullableInt(Param3.Text),
-            //};
-            //_operation.Args = args;
-            //_operation.DescriptionChangedNotify();//notify thuộc tính description đã thay đổi
         }
     }
 }

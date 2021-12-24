@@ -13,12 +13,22 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
-            int? a = null;
-            string b = a.ToString();
-            Console.WriteLine(b);
+            int Start = 1;
+            int Step = 1;
+            int Digit = 5;
+            string counter=Start.ToString();
+            if (counter.Length < Digit)
+            {
+                for (int i = counter.Length; i < Digit; i++)
+                {
+                    counter = counter.Insert(0,"0");
+                }
+            }
+            string origin = "tung.txt";
+            int index = origin.LastIndexOf('.');
 
-            int? c = ToNullableInt(b);
-            Console.WriteLine(c);
+            origin=  origin.Insert(index, counter);
+            Console.WriteLine(origin);
         }
     }
 }

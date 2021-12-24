@@ -10,7 +10,9 @@ namespace AddCounterRule
     class AddCounterArgs:StringArgs
     {
         public int? Start { get; set; }
+        public int? Counter { get; set; }
         public int? Step { get; set; }
         public int? Digit { get; set; }
+
     }
 }

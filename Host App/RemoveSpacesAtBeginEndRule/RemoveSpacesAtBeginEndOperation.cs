@@ -68,6 +68,11 @@ namespace RemoveSpacesAtBeginEndRule
             return resultList;
         }
 
+        //luật nào không cần reset sau khi đổi tên thì để không như này
+        public void ResetRule()
+        {
+        }
+
         public string Operate(string origin, bool isFile)
         {
             //if (!IsValidParams) return origin;

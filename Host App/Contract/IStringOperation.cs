@@ -21,6 +21,7 @@ namespace Contract
         public void CreateFromRaw(RawRule input);
         public List<string> GetStringAgrs();
         public void DescriptionChangedNotify();
+        public void ResetRule();//Một số luật cần được reset sau khi đổi tên (Tùng bị dính luật add counter kb luật của ae bị không, nếu không cần thì cứ khai báo hàm, để không cũng được )
 
     }
 }
