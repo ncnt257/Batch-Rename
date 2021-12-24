@@ -25,10 +25,12 @@ namespace RemoveSpacesAtBeginEndRule
             get;
             set;
         }
-        public RemoveSpacesAtBeginEndOperation()
+        public RemoveSpacesAtBeginEndOperation()//đừng quên cài đặt constructor
         {
             Args = new RemoveSpacesAtBeginEndAgrs();
             ConfigUC = new RemoveSpacesAtBeginEndUC();
+            ConfigUC.DataContext = this.Args;
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

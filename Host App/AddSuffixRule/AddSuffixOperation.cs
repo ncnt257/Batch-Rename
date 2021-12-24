@@ -1,4 +1,4 @@
-using Contract;
+﻿using Contract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +31,7 @@ namespace AddSuffixRule
             set;
         }
 
-        public AddSuffixOperation()
+        public AddSuffixOperation()//đừng quên cài đặt constructor
         {
             Args = new AddSuffixArgs();
             ConfigUC = new AddSuffixRuleUC(this);
