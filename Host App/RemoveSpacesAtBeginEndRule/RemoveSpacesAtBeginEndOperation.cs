@@ -25,13 +25,17 @@ namespace RemoveSpacesAtBeginEndRule
             get;
             set;
         }
-        public RemoveSpacesAtBeginEndOperation()
+        public RemoveSpacesAtBeginEndOperation()//đừng quên cài đặt constructor
         {
             Args = new RemoveSpacesAtBeginEndAgrs();
             ConfigUC = new RemoveSpacesAtBeginEndUC();
+            ConfigUC.DataContext = this.Args;
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool IsValidParams => true; //do luật này k có tham số, trigger preview name cũng chẳng sao, những luật khác thì nhớ xem xét
 
         public IStringOperation Clone()
         {
@@ -66,6 +70,8 @@ namespace RemoveSpacesAtBeginEndRule
 
         public string Operate(string origin, bool isFile)
         {
+            //if (!IsValidParams) return origin;
+            //do IsValidParams ở luật này luôn true nên k cần thiết, những luật khác nhớ thêm dòng trên
             if (!isFile)
             {
                 return origin.Trim();
