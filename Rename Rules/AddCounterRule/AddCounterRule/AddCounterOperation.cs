@@ -23,7 +23,7 @@ namespace AddCounterRule
             {
                 if (!IsValidParams) return "";
                 var args = Args as AddCounterArgs;
-                return $"Add {args.Digit} digit counter from {args.Start} with step of {args.Step}";
+                return $"Add {args.Digit} digit(s) counter from {args.Start} with step of {args.Step}";
             }
         }
         public UserControl ConfigUC { get; set; }

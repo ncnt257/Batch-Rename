@@ -1,14 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Contract;
 
 namespace ChangeExtensionRule
 {
     public class ChangeExtensionOperation:IStringOperation
     {
+        public bool IsValidParams => true;
+        
+
         public event IStringOperation.Trigger PreviewTriggerEvent;
+
+        public void ResetRule()
+        {
+        }
 
         public StringArgs Args { get; set; }
         public string Name => "Change Extension";
@@ -18,7 +27,8 @@ namespace ChangeExtensionRule
             get
             {
                 var args = Args as ChangeExtensionArgs;
-                return $"Change file extension to {args.NewExtension}";
+                string to = (args.NewExtension == "" || args.NewExtension is null) ? "NOTHING!" : args.NewExtension;
+                return $"Change file extension to {to}";
             }
         }
         public UserControl ConfigUC { get; set; }
@@ -74,7 +84,14 @@ namespace ChangeExtensionRule
         }
         public string Operate(string origin, bool isFile)
         {
-            throw new NotImplementedException();
+            if (isFile)
+            {
+                var args = Args as ChangeExtensionArgs;
+                string pattern = @"(\.[^.]+)$";
+                var regex = new Regex(pattern);
+                return regex.Replace(origin, $".{args.NewExtension}");
+            }
+            return origin;
         }
 
 

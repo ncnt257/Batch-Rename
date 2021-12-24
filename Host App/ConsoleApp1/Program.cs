@@ -13,21 +13,11 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
-            int Start = 1;
-            int Step = 1;
-            int Digit = 5;
-            string counter=Start.ToString();
-            if (counter.Length < Digit)
-            {
-                for (int i = counter.Length; i < Digit; i++)
-                {
-                    counter = counter.Insert(0,"0");
-                }
-            }
-            string origin = "tung.txt";
-            int index = origin.LastIndexOf('.');
-
-            origin=  origin.Insert(index, counter);
+            string origin = "sadsa.dsad.ds";
+            string NewExtension = ".hihi";
+            string pattern = @"(\.[^.]+)$";
+            var regex = new Regex(pattern);
+            origin = regex.Replace(origin, NewExtension);
             Console.WriteLine(origin);
         }
     }
