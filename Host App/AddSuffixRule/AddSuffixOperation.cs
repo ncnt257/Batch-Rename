@@ -39,6 +39,8 @@ namespace AddSuffixRule
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public bool IsValidParams => true;//do luật này k có tham số, trigger preview name cũng chẳng sao, những luật khác thì nhớ xem xét
+
         public IStringOperation Clone()
         {
             var oldArgs = Args as AddSuffixArgs;
@@ -81,6 +83,8 @@ namespace AddSuffixRule
 
         public string Operate(string origin, bool isFile)
         {
+            //if (!IsValidParams) return origin;
+            //do IsValidParams ở luật này luôn true nên k cần thiết, những luật khác nhớ thêm dòng trên
             var args = Args as AddSuffixArgs;
             string suffix = args.Suffix;
             if (!isFile)

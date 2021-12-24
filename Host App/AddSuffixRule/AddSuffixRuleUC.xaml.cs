@@ -21,11 +21,8 @@ namespace AddSuffixRule
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            var args = new AddSuffixArgs()
-            {
-                Suffix = Param.Text ?? "",
-            };
-            _operation.Args = args;
+            var args = _operation.Args as AddSuffixArgs;
+            args.Suffix = Param.Text ?? "";
             _operation.DescriptionChangedNotify();//notify thuộc tính description đã thay đổi
         }
     }
