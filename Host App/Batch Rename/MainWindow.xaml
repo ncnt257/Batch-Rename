@@ -193,7 +193,6 @@
                     </ListView>
                     <ScrollViewer Name="RuleConfigContent" Grid.Column="1" Background="#126E82" >
                         <!--Put User Control here-->
-
                     </ScrollViewer>
                     <!--Để resize grid-->
                     <GridSplitter Grid.Column="1" Width="5" Background="Black" HorizontalAlignment="Left"></GridSplitter>

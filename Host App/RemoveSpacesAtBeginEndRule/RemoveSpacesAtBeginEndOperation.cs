@@ -20,8 +20,8 @@ namespace RemoveSpacesAtBeginEndRule
 
         }
         public UserControl ConfigUC { get; set; }
-        public bool IsChecked 
-        { 
+        public bool IsChecked
+        {
             get;
             set;
         }
@@ -30,7 +30,6 @@ namespace RemoveSpacesAtBeginEndRule
             Args = new RemoveSpacesAtBeginEndAgrs();
             ConfigUC = new RemoveSpacesAtBeginEndUC();
             ConfigUC.DataContext = this.Args;
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
