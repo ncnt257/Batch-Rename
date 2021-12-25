@@ -17,7 +17,7 @@ namespace ReplaceCharacter
             InitializeComponent();
             _operation = operation;
             var args = _operation.Args as ReplaceCharacterArgs;
-            Param.Text = (args.To).ToString();
+            Param.Text = (args.To).ToString() ?? "";
             foreach (var character in args.From)
             {
                 listCharBinding.Add(character);
@@ -42,16 +42,23 @@ namespace ReplaceCharacter
         private void AddArgBtn_OnClickBtn_Click(object sender, RoutedEventArgs e)
         {
             var insertCharacter = (ArgsAdd.Text ?? "")[0];
+            bool flag = true;
             foreach (var character in listCharBinding)
             {
                 if (character == insertCharacter)
                 {
                     ArgsAdd.Text = "";
+                    MessageBox.Show("This character has been existed");
+                    flag = false;
+                    break;
                 }
-
-                MessageBox.Show("This character has been existed");
             }
-            listCharBinding.Add(insertCharacter);
+
+            if (flag)
+            {
+                listCharBinding.Add(insertCharacter);
+                ArgsAdd.Text = "";
+            }
         }
     }
 }
