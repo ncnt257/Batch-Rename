@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Batch_Rename
@@ -19,35 +21,45 @@ namespace Batch_Rename
         public string PreviewName { get; set; }//các luật đổi tên thao tác trên thuộc tính này
         public bool IsChecked { get; set; }
         public bool IsFile { get; set; }//check if file or folder
-
         public void Rename(string copyPath)
         {
-            if (IsChecked)
+            try
             {
-                if (IsFile)
+                if (IsChecked)
                 {
-                    if (copyPath == Path)//copyPath đc truyền vào là Path tức là người dùng k dùng chức năng copy to
+                    if (IsFile)
                     {
-                        System.IO.File.Move(FullName, $"{copyPath}/{PreviewName}");//ở đây không xài copy overwrite vì khi đổi tên nó thành file khác và đc copy chồng vô
+                        if (copyPath == Path)//copyPath đc truyền vào là Path tức là người dùng k dùng chức năng copy to
+                        {
+                            if (Name != PreviewName)
+                                File.Move(FullName, $"{copyPath}/{PreviewName}",
+                                    true); //ở đây không xài copy overwrite vì khi đổi tên nó thành file khác và đc copy chồng vô
+                        }
+                        else
+                        {
+                            File.Copy(FullName, $"{copyPath}/{PreviewName}", true);
+                        }
                     }
                     else
                     {
-                        System.IO.File.Copy(FullName, $"{copyPath}/{PreviewName}", true);
+                        if (copyPath == Path)
+                        {
+                            if (Name != PreviewName)
+                                Directory.Move(FullName, $"{copyPath}/{PreviewName}");
+                        }
+                        else
+                        {
+                            Utility.CopyFilesRecursively(FullName, $"{copyPath}/{PreviewName}");
+                        }
+
                     }
                 }
-                else
-                {
-                    if (copyPath == Path)
-                    {
-                        System.IO.Directory.Move(FullName, $"{copyPath}/{PreviewName}");
-                    }
-                    else
-                    {
-                        Utility.CopyFilesRecursively(FullName, $"{copyPath}/{PreviewName}");
-                    }
-                }
+
             }
-            
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
         
         public event PropertyChangedEventHandler? PropertyChanged;

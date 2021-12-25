@@ -31,7 +31,7 @@
                      Padding="3"
                      Width="200"
                      BorderBrush="#128E83"
-                     Text="{Binding Suffix}"
+                     Text="{Binding NewExtension}"
             />
         </Grid>
         <Button x:Name="ConfirmBtn" Content="Confirm" FontSize="12" Height="25" Width="80" Click="ConfirmBtn_Click"/>

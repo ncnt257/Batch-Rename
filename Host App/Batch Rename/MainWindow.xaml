@@ -60,7 +60,7 @@
                 <StackPanel   Background="#126E82" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
                         <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="300" Width="Auto" LineHeight="30" Padding="10,0,10,0"/>
+                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="400" MaxWidth="400" Width="Auto" LineHeight="30" Padding="10,0,10,0"/>
                         <Button x:Name="DisableCopyToBtn" Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328" Content="Disable Copy To" Click="DisableCopyToBtn_Click"/>
                     </StackPanel>
                 </StackPanel>
@@ -77,23 +77,24 @@
                     </ListView.Resources>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="" Width="auto">
+                            
+                            <GridViewColumn Header="" Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image HorizontalAlignment="Center" Source="{Binding IsFile, Converter={StaticResource FileOrFolderToIconConverter}}" Width="20"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Check" Width="auto">
+                            <GridViewColumn Header="Checked" Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <CheckBox x:Name="FileCheckBox" Unchecked="FileCheckBox_Unchecked" Checked="FileCheckBox_Checked" HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="File name" Width="auto" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Preview" Width="auto" DisplayMemberBinding="{Binding PreviewName}" />
-                            <GridViewColumn Header="Directory"  Width="auto" DisplayMemberBinding="{Binding Path}" />
+                            <GridViewColumn Header="File name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Preview" Width="Auto" DisplayMemberBinding="{Binding PreviewName}" />
+                            <GridViewColumn Header="Directory"  Width="Auto" DisplayMemberBinding="{Binding Path}" />
                         </GridView>
 
                     </ListView.View>
@@ -101,6 +102,7 @@
                         <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                            
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
@@ -115,11 +117,11 @@
                         <ColumnDefinition Width="290"/>
                     </Grid.ColumnDefinitions>
                     <DockPanel Margin="10,5">
-                        <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center">Rule Set name</Label>
+                        <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center" Width="110">Rule Set name</Label>
                         <Button Margin="20,0,0,0" Name="ApplyButton" Click="ApplyButton_OnClick">Apply</Button>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
-                            <ComboBox Name="RulesComboBox" Width="250" VerticalContentAlignment="Center" Background="#D8E3E7" SelectedIndex="0">
+                            <ComboBox Name="RulesComboBox" Width="200" VerticalContentAlignment="Center" Background="#D8E3E7" SelectedIndex="0" MaxWidth="200">
 
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -160,15 +162,15 @@
                         <!--Thêm header với binding-->
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="auto" Header="Checked">
+                                <GridViewColumn Width="Auto" Header="Checked">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate >
                                             <CheckBox x:Name="CheckToUse" Checked="CheckToUse_Checked" Unchecked="CheckToUse_Unchecked" HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="200" Header="Rule name" DisplayMemberBinding="{Binding Path=Name}" />
-                                <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
+                                <GridViewColumn Width="Auto" Header="Rule name" DisplayMemberBinding="{Binding Path=Name}" />
+                                <GridViewColumn Width="Auto" Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
 
                             </GridView>
                         </ListView.View>
@@ -176,8 +178,17 @@
                         <!--Thêm context menu để chuột phải ở đây-->
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
+                                
                                 <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                                <Style.Triggers>
+                                    <!--Trigger khi luật chưa có tham số hợp lệ-->
+                                    <DataTrigger Binding="{Binding Path=IsValidParams}" Value="false">
+                                        <Setter Property="Background" Value="#ffffed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+
                             </Style>
+                            
                         </ListView.ItemContainerStyle>
                     </ListView>
                     <ScrollViewer Name="RuleConfigContent" Grid.Column="1" Background="#126E82" >

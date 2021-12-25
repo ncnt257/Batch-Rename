@@ -247,8 +247,6 @@ namespace Batch_Rename
                     }
                     filepath.PreviewName = previewName;
                 }
-
-
             }
 
             foreach (var action in rulesReseter)
