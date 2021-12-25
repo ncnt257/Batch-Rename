@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ReplaceCharacter"
              mc:Ignorable="d" 
-             d:DesignWidth="290" Height="140">
+             d:DesignWidth="290" Height="400">
     <StackPanel Background="#126E82" Margin="0,0,0,-85">
         <Label Content="Add Replace Character Rule" 
                Foreground="White" 
@@ -26,12 +26,12 @@
                    Margin="5 0 0 0"
                    VerticalAlignment="Center"
                    Foreground="White"/>
-            <TextBox Margin="0 0 20 0" Background="White" x:Name="Param" MaxLength="1" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox Margin="0 0 20 0" Background="White" x:Name="Param" 
+                     MaxLength="1" Grid.Column="1" Grid.ColumnSpan="2"
                      Height="25"
                      Padding="3"
                      Width="200"
                      BorderBrush="#128E83"
-                     Text="checkLai"
             />
         </Grid>
         <Label Name="ParamNameFrom" Content="From" 
@@ -40,7 +40,7 @@
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                Foreground="White"/>
-        <ListView Name="ArgList" Grid.Column="0" Background="#D8E3E7">
+        <ListView Name="ArgList" Width="290" Grid.Column="0" Background="#D8E3E7" >
             <!--Cài context menu để chuột phải ở đây-->
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu">
@@ -52,12 +52,12 @@
             <!--Thêm header với binding-->
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="290" Header="Arg character" DisplayMemberBinding="{Binding Path=Name}" />
+                    <GridViewColumn Width="290" Header="Arg character" DisplayMemberBinding="{Binding}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5px">
-            <TextBox Margin="0 0 25 0" Background="White" x:Name="ArgsAdd" MaxLength="1" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox Margin="0 0 25 0" Background="White" x:Name="ArgsAdd" MaxLength="1" 
                      Height="25"
                      Padding="3"
                      Width="80"
