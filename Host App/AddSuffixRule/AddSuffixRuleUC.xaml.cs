@@ -1,6 +1,4 @@
-﻿using Contract;
-using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace AddSuffixRule
