@@ -13,12 +13,8 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
-            string origin = "sadsa.dsad.ds";
-            string NewExtension = ".hihi";
-            string pattern = @"(\.[^.]+)$";
-            var regex = new Regex(pattern);
-            origin = regex.Replace(origin, NewExtension);
-            Console.WriteLine(origin);
+            bool res = (true && true && false && true);
+            Console.WriteLine(res);
         }
     }
 }

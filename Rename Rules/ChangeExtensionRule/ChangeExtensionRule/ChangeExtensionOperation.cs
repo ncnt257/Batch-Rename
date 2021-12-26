@@ -73,6 +73,8 @@ namespace ChangeExtensionRule
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs("Description"));
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs("IsValidParams"));
             PreviewTriggerEvent?.Invoke();
         }
         public List<string> GetStringAgrs()
@@ -89,7 +91,16 @@ namespace ChangeExtensionRule
                 var args = Args as ChangeExtensionArgs;
                 string pattern = @"(\.[^.]+)$";
                 var regex = new Regex(pattern);
-                return regex.Replace(origin, $".{args.NewExtension}");
+                if (regex.IsMatch(origin))
+                {
+                    origin = regex.Replace(origin, $".{args.NewExtension}");
+
+                }
+                else
+                {
+                    origin += $".{args.NewExtension}";
+                }
+
             }
             return origin;
         }

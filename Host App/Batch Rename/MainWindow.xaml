@@ -77,7 +77,6 @@
                     </ListView.Resources>
                     <ListView.View>
                         <GridView>
-                            
                             <GridViewColumn Header="" Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -100,7 +99,7 @@
                     </ListView.View>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            
                             <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                             
                         </Style>
@@ -165,16 +164,19 @@
                                 <GridViewColumn Width="Auto" Header="Checked">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate >
-                                            <CheckBox x:Name="CheckToUse" Checked="CheckToUse_Checked" Unchecked="CheckToUse_Unchecked" HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
+                                            <CheckBox x:Name="CheckToUse" Checked="CheckToUse_Checked" Unchecked="CheckToUse_Unchecked"  HorizontalAlignment="Center" IsChecked="{Binding IsChecked}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
+
+
                                 <GridViewColumn Width="Auto" Header="Rule name" DisplayMemberBinding="{Binding Path=Name}" />
                                 <GridViewColumn Width="Auto" Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
 
                             </GridView>
                         </ListView.View>
-
+                        
                         <!--Thêm context menu để chuột phải ở đây-->
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}"  BasedOn="{StaticResource MaterialDesignGridViewItem }">
@@ -193,7 +195,6 @@
                     </ListView>
                     <ScrollViewer Name="RuleConfigContent" Grid.Column="1" Background="#126E82" >
                         <!--Put User Control here-->
-
                     </ScrollViewer>
                     <!--Để resize grid-->
                     <GridSplitter Grid.Column="1" Width="5" Background="Black" HorizontalAlignment="Left"></GridSplitter>
