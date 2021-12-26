@@ -267,6 +267,7 @@ namespace Batch_Rename
         private void DeleteAll_Click(object sender, RoutedEventArgs e)
         {
             _actions.Clear();
+            RuleConfigContent.Content = "";
             PreviewTrigger();
         }
 
