@@ -36,12 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ReplaceCharacter">
-      <HintPath>..\..\Rename Rules\ReplaceCharacter\ReplaceCharacter\bin\Release\net5.0-windows\ReplaceCharacter.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Images\choose-preset.png" />
     <Resource Include="Images\copy-to.png" />
     <Resource Include="Images\disable-copy-to.png" />
