@@ -33,7 +33,6 @@ namespace PascalCase
             Args = new PascalCaseArgs();
             ConfigUC = new PascalCaseUC();
             ConfigUC.DataContext = this.Args;
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

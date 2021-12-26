@@ -272,6 +272,10 @@ namespace Batch_Rename
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            //check chưa có luật thì return luôn
+            if (_actions.Count() == 0)
+                return;
+
             if (sFileName == "")
             {
                 SaveAs_click(sender, e);
@@ -323,6 +327,10 @@ namespace Batch_Rename
 
         private void SaveAs_click(object sender, RoutedEventArgs e)
         {
+            //check chưa có luật thì return luôn
+            if (_actions.Count() == 0)
+                return;
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "XML Files | *.xml";
             if (saveFileDialog.ShowDialog() == true)

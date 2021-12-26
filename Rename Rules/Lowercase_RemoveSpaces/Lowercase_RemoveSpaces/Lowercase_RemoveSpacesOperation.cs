@@ -84,7 +84,7 @@ namespace Lowercase_RemoveSpaces
                 return origin.ToLower();
             }
 
-            Regex ext = new Regex("[.]\\w$");
+            Regex ext = new Regex(@"(\.[^.]*)$");
             Match m3 = ext.Match(origin);
             int extendIdx = origin.LastIndexOf(m3.ToString());
             string extend = origin.Substring(extendIdx);
