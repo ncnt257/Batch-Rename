@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ReplaceCharacter"
              mc:Ignorable="d" 
-             d:DesignWidth="290" Height="400">
+             d:DesignWidth="290" Height="1000">
     <StackPanel Background="#126E82" Margin="0,0,0,-85">
         <Label Content="Add Replace Character Rule" 
                Foreground="White" 
@@ -27,11 +27,12 @@
                    VerticalAlignment="Center"
                    Foreground="White"/>
             <TextBox Margin="0 0 20 0" Background="White" x:Name="Param" 
-                     MaxLength="1" Grid.Column="1" Grid.ColumnSpan="2"
+                     MaxLength="2" Grid.Column="1" Grid.ColumnSpan="2"
                      Height="25"
                      Padding="3"
                      Width="200"
                      BorderBrush="#128E83"
+                     Text="{Binding Path=To}"
             />
         </Grid>
         <Label Name="ParamNameFrom" Content="From" 
@@ -47,14 +48,18 @@
                     <MenuItem Name="RemoveArg" Header="Remove" Click="RemoveArg_Click"/>
                 </ContextMenu>
             </ListView.Resources>
-
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" >
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
 
             <!--Thêm header với binding-->
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="290" Header="Arg character" DisplayMemberBinding="{Binding}" />
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding }"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5px">
             <TextBox Margin="0 0 25 0" Background="White" x:Name="ArgsAdd" MaxLength="1" 
