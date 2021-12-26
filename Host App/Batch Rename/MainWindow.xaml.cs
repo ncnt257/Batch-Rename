@@ -1,7 +1,7 @@
-﻿using System;
-using Contract;
+﻿using Contract;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -24,7 +24,7 @@ namespace Batch_Rename
         public Dictionary<string, IStringOperation> _prototypes = new Dictionary<string, IStringOperation>();
         BindingList<IStringOperation> _actions = new BindingList<IStringOperation>();
         private RenameRuleFactory renameRuleFactory;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,8 +40,8 @@ namespace Batch_Rename
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
             var count = 0;
-            var renameSuccess = false; 
-            if (_actions.Count == 0||filepaths.Count==0) return;
+            var renameSuccess = false;
+            if (_actions.Count == 0 || filepaths.Count == 0) return;
             foreach (var filepath in filepaths)
             {
                 if (filepath.IsChecked) count++;
@@ -235,7 +235,7 @@ namespace Batch_Rename
 
         public void PreviewTrigger()
         {
-            List<Action> rulesReseter =new List<Action>();
+            List<Action> rulesReseter = new List<Action>();
             foreach (var filepath in filepaths)
             {
                 if (filepath.IsChecked)
@@ -304,7 +304,6 @@ namespace Batch_Rename
 
             if (browseDialog.ShowDialog() != true)
             {
-                MessageBox.Show("Can't open file !");
                 return;
             }
 
