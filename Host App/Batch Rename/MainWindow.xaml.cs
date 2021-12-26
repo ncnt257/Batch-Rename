@@ -40,6 +40,7 @@ namespace Batch_Rename
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
             var count = 0;
+
             var renameSuccess = false;
             if (_actions.Count == 0 || filepaths.Count == 0) return;
             foreach (var filepath in filepaths)

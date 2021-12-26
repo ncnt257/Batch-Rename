@@ -94,6 +94,19 @@ namespace AddSuffixRule
                 return origin + suffix;
             }
             Regex ext = new Regex("[.]\\w{2,}$");
+<<<<<<< HEAD
+            string extension = ext.Match(origin).ToString();
+            int idx = origin.IndexOf(extension);
+            if(extension == "")
+            {
+                return origin + suffix;
+            }
+            if(idx == 0)
+            {
+                return suffix + extension;
+            }
+            string newName = origin.Substring(0, idx) + suffix + extension;
+=======
             string extend = ext.Match(origin).ToString();
             int idx = origin.IndexOf(extend);
             if(idx == 0)
@@ -101,6 +114,7 @@ namespace AddSuffixRule
                 return origin + suffix;
             }
             string newName = origin.Substring(0, idx) + suffix + extend;
+>>>>>>> 66ccffa38a35f942d6b52ff69cd5794eeb24a172
             return newName;
         }
 
