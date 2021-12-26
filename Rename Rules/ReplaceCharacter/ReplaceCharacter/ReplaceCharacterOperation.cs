@@ -134,6 +134,9 @@ namespace ReplaceCharacter
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs("Description"));
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs("IsValidParams"));
+
             PreviewTriggerEvent?.Invoke();
         }
 
