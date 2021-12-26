@@ -1,14 +1,15 @@
 ﻿using Contract;
-using System.Collections.Generic;
+using System.ComponentModel;
+
 namespace ReplaceCharacter
 {
     public class ReplaceCharacterArgs : StringArgs
     {
         public ReplaceCharacterArgs()
         {
-            From = new List<char>();
+            From = new BindingList<string>();
         }
-        public char To { get; set; }
-        public List<char> From { get; set; }
+        public string To { get; set; }
+        public BindingList<string> From { get; set; }
     }
 }

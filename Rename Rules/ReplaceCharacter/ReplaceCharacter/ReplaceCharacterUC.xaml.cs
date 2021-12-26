@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace ReplaceCharacter
@@ -10,40 +9,33 @@ namespace ReplaceCharacter
     public partial class ReplaceCharacterUC : UserControl
     {
         private readonly ReplaceCharacterOperation _operation;
-        private BindingList<char> listCharBinding = new BindingList<char>();
-
+        public ReplaceCharacterArgs args = new ReplaceCharacterArgs();
         public ReplaceCharacterUC(ReplaceCharacterOperation operation)
         {
             InitializeComponent();
             _operation = operation;
-            var args = _operation.Args as ReplaceCharacterArgs;
-            Param.Text = (args.To).ToString() ?? "";
-            foreach (var character in args.From)
-            {
-                listCharBinding.Add(character);
-            }
-
-            ArgList.ItemsSource = listCharBinding;
+            args = _operation.Args as ReplaceCharacterArgs;
+            ArgList.ItemsSource = args.From;
         }
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            var args = _operation.Args as ReplaceCharacterArgs;
-            args.To = (Param.Text ?? "")[0];
+            args.To = Param.Text;
+            _operation.Args = args;
             _operation.DescriptionChangedNotify();
         }
 
         private void RemoveArg_Click(object sender, RoutedEventArgs e)
         {
             int index = ArgList.SelectedIndex;
-            listCharBinding.RemoveAt(index);
+            args.From.RemoveAt(index);
         }
 
         private void AddArgBtn_OnClickBtn_Click(object sender, RoutedEventArgs e)
         {
-            var insertCharacter = (ArgsAdd.Text ?? "")[0];
+            var insertCharacter = (ArgsAdd.Text ?? "");
             bool flag = true;
-            foreach (var character in listCharBinding)
+            foreach (var character in args.From)
             {
                 if (character == insertCharacter)
                 {
@@ -56,7 +48,7 @@ namespace ReplaceCharacter
 
             if (flag)
             {
-                listCharBinding.Add(insertCharacter);
+                args.From.Add(insertCharacter);
                 ArgsAdd.Text = "";
             }
         }

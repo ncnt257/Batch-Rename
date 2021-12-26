@@ -68,14 +68,15 @@ namespace ReplaceCharacter
         {
             if (!IsValidParams) return origin;
             var args = Args as ReplaceCharacterArgs;
-            char toCharacter = args.To;
+            char toCharacter = args.To[0];
             if (!isFile)
             {
+                string result = origin;
                 foreach (var character in args.From)
                 {
-                    origin = origin.Replace(character, args.To);
+                    result = result.Replace(character, args.To);
                 }
-                return origin;
+                return result;
             }
             Regex ext = new Regex("[.]\\w{2,}$");
             string extend = ext.Match(origin).ToString();
@@ -84,7 +85,8 @@ namespace ReplaceCharacter
 
             foreach (var character in args.From)
             {
-                nameWithoutExtend = nameWithoutExtend.Replace(character, args.To);
+                char temp = character[0];
+                nameWithoutExtend = nameWithoutExtend.Replace(temp, args.To[0]);
             }
             string newName = nameWithoutExtend + extend;
             return newName;
@@ -94,17 +96,17 @@ namespace ReplaceCharacter
         {
             IsChecked = input.IsChecked;
             int i = 0;
-            char tempTo = 'a';
-            List<char> tempFrom = new List<char>();
+            string tempTo = "";
+            BindingList<string> tempFrom = new BindingList<string>();
             foreach (var info in input.AgrList)
             {
                 if (i == 0)
                 {
-                    tempTo = info[0];
+                    tempTo = info;
                     i++;
                     continue;
                 }
-                tempFrom.Add(info[0]);
+                tempFrom.Add(info);
                 i++;
             }
 
