@@ -89,7 +89,16 @@ namespace ChangeExtensionRule
                 var args = Args as ChangeExtensionArgs;
                 string pattern = @"(\.[^.]+)$";
                 var regex = new Regex(pattern);
-                return regex.Replace(origin, $".{args.NewExtension}");
+                if (regex.IsMatch(origin))
+                {
+                    origin = regex.Replace(origin, $".{args.NewExtension}");
+
+                }
+                else
+                {
+                    origin += $".{args.NewExtension}";
+                }
+
             }
             return origin;
         }
