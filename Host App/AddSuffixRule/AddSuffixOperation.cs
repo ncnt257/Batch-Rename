@@ -96,6 +96,10 @@ namespace AddSuffixRule
             Regex ext = new Regex("[.]\\w{2,}$");
             string extend = ext.Match(origin).ToString();
             int idx = origin.IndexOf(extend);
+            if(idx == 0)
+            {
+                return origin + suffix;
+            }
             string newName = origin.Substring(0, idx) + suffix + extend;
             return newName;
         }

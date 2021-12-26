@@ -40,13 +40,18 @@ namespace Batch_Rename
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
             var count = 0;
+            var renameSuccess = false; 
+            if (_actions.Count == 0||filepaths.Count==0) return;
             foreach (var filepath in filepaths)
             {
                 if (filepath.IsChecked) count++;
-                filepath.Rename(CopyToTextBlock.Text != "" ? CopyToTextBlock.Text : filepath.Path);
+                renameSuccess = filepath.Rename(CopyToTextBlock.Text != "" ? CopyToTextBlock.Text : filepath.Path);
             }
-            MessageBox.Show($"Rename {count} file(s)/folder(s) successfully");
-            filepaths.Clear();
+            if (renameSuccess)
+            {
+                MessageBox.Show($"Rename {count} file(s)/folder(s) successfully");
+                filepaths.Clear();
+            }
         }
 
         private void RemoveFileButtonMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -246,6 +251,10 @@ namespace Batch_Rename
 
                     }
                     filepath.PreviewName = previewName;
+                }
+                else
+                {
+                    filepath.PreviewName = filepath.Name;
                 }
             }
 

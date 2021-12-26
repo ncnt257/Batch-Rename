@@ -21,7 +21,7 @@ namespace Batch_Rename
         public string PreviewName { get; set; }//các luật đổi tên thao tác trên thuộc tính này
         public bool IsChecked { get; set; }
         public bool IsFile { get; set; }//check if file or folder
-        public void Rename(string copyPath)
+        public bool Rename(string copyPath)
         {
             try
             {
@@ -54,11 +54,12 @@ namespace Batch_Rename
 
                     }
                 }
-
+                return true;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                return false;
             }
         }
         
