@@ -316,6 +316,7 @@ namespace Batch_Rename
         private void SaveAs_click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XML Files | *.xml";
             if (saveFileDialog.ShowDialog() == true)
             {
                 var filePath = saveFileDialog.FileName;
