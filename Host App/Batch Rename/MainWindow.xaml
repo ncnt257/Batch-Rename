@@ -118,7 +118,7 @@
                 <Grid Background="#132C33" DockPanel.Dock="Top" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="290"/>
+                        <ColumnDefinition Width="310"/>
                     </Grid.ColumnDefinitions>
                     <DockPanel Margin="10,5">
                         <Label  FontFamily="{StaticResource MaterialDesignFont}" Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center" Width="110">Rule Set name</Label>
@@ -148,7 +148,7 @@
                 <Grid DockPanel.Dock="Bottom" Name="RulesGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="290" Name="RuleConfigColumn"/>
+                        <ColumnDefinition Width="310" Name="RuleConfigColumn"/>
                     </Grid.ColumnDefinitions>
 
 

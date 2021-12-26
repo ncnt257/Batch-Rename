@@ -60,7 +60,11 @@ namespace ReplaceCharacter
                 },
                 IsChecked = true,
                 PreviewTriggerEvent = this.PreviewTriggerEvent
+                
             };
+            var args = clone.Args as ReplaceCharacterArgs;
+            var configUc = clone.ConfigUC as ReplaceCharacterUC;
+            configUc.ArgList.ItemsSource = args.From;
             return clone;
         }
 
@@ -110,22 +114,22 @@ namespace ReplaceCharacter
                 i++;
             }
 
-            Args = new ReplaceCharacterArgs()
-            {
-                To = tempTo,
-                From = tempFrom
-            };
+            var args = Args as ReplaceCharacterArgs;
+            args.From = tempFrom;
+            args.To = tempTo;
             ConfigUC.DataContext = this.Args;
+            var configUc = ConfigUC as ReplaceCharacterUC;
+            configUc.ArgList.ItemsSource = args.From;
         }
 
         public List<string> GetStringAgrs()
         {
-            List<string> resultList = new List<string>();
+            var resultList = new List<string>();
             var args = Args as ReplaceCharacterArgs;
-            resultList.Add(args.To.ToString());
+            resultList.Add(args.To);
             foreach (var character in args.From)
             {
-                resultList.Add(character.ToString());
+                resultList.Add(character);
             }
             return resultList;
         }

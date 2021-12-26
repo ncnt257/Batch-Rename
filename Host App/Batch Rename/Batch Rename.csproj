@@ -8,6 +8,11 @@
     <ApplicationIcon>batch-rename-icon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Images\choose-preset.png" />
     <None Remove="Images\copy-to.png" />
@@ -33,6 +38,12 @@
     <ProjectReference Include="..\AddSuffixRule\AddSuffixRule.csproj" />
     <ProjectReference Include="..\Contract\Contract.csproj" />
     <ProjectReference Include="..\RemoveSpacesAtBeginEndRule\RemoveSpacesAtBeginEndRule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ReplaceCharacter">
+      <HintPath>..\..\Rename Rules\ReplaceCharacter\ReplaceCharacter\bin\Release\net5.0-windows\ReplaceCharacter.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
