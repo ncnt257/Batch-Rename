@@ -60,6 +60,6 @@
                      BorderBrush="#128E83"
                      Text="{Binding Digit}"/>
         </Grid>
-        <Button x:Name="ConfirmBtn" Content="Confirm" FontSize="12" Height="25" Width="80" Click="ConfirmBtn_Click"/>
+        <Button x:Name="ConfirmBtn" Content="Confirm" FontSize="12" Height="25" Width="80" Click="ConfirmBtn_Click" IsDefault="True" Margin="0,0,0,10"/>
     </StackPanel>
 </UserControl>

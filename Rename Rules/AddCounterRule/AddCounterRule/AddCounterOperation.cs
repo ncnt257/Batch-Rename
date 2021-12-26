@@ -34,7 +34,7 @@ namespace AddCounterRule
             get
             {
                 var args = Args as AddCounterArgs;
-                return (args.Start is not null || args.Step is not null || args.Digit is not null);
+                return (args.Start is not null && args.Step is not null && args.Digit is not null);
             }
         }
 
@@ -91,6 +91,8 @@ namespace AddCounterRule
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs("Description"));
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs("IsValidParams"));
             PreviewTriggerEvent?.Invoke();
         }
         public void ResetRule()
@@ -105,6 +107,10 @@ namespace AddCounterRule
             if (isFile)
             {
                 int index = origin.LastIndexOf(".");
+                if (index < 0)
+                {
+                    index = origin.Length;
+                }
                 string count = args.Counter.ToString();
                 if (count.Length < args.Digit)
                 {

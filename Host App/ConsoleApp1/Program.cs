@@ -13,19 +13,8 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
-            string origin ="test.a.s.txt";
-            string pattern = @"(\.[^.]+)$";
-            var regex = new Regex(pattern);
-            if (regex.IsMatch(origin))
-            {
-                origin = regex.Replace(origin, $".bruh");
-
-            }
-            else
-            {
-                origin += ".bruh";
-            }
-            Console.WriteLine(origin);
+            bool res = (true && true && false && true);
+            Console.WriteLine(res);
         }
     }
 }
