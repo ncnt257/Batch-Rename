@@ -7,7 +7,7 @@
         xmlns:converter="clr-namespace:Batch_Rename.Converter"
         mc:Ignorable="d"
         Title="Batch Rename" Height="450" Width="1000"
-        MinHeight="550" MinWidth="650"
+        MinHeight="550" MinWidth="950"
         ResizeMode="CanResizeWithGrip" 
         Loaded="Window_Loaded">
     <Window.Resources>
@@ -57,13 +57,18 @@
             <DockPanel  Grid.Row="0">
 
                 <!--Copy to-->
-                <StackPanel   Background="#126E82" DockPanel.Dock="Top">
+                <DockPanel   Background="#126E82" DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <Label FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
-                        <TextBlock Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="400" MaxWidth="400" Width="Auto" LineHeight="30" Padding="10,0,10,0"/>
+                        <Label  FontFamily="{StaticResource MaterialDesignFont}" FontSize="15" Margin="0,0,20,0" Foreground="GhostWhite">Copy To:</Label>
+                        <TextBox IsReadOnly="True" Name="CopyToTextBlock" VerticalAlignment="Center" Background="#D8E3E7" FontSize="15" Height="25" MinWidth="400" MaxWidth="400" Width="Auto"  Padding="10,0,10,0"/>
                         <Button x:Name="DisableCopyToBtn" Margin="20,0,0,0" BorderBrush="#AB2328" Background="#AB2328" Content="Disable Copy To" Click="DisableCopyToBtn_Click"/>
                     </StackPanel>
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <CheckBox Name="OverwriteCheckBox" VerticalAlignment="Center" Background="Black"></CheckBox>
+                        <Label  FontSize="15" Foreground="GhostWhite" VerticalAlignment="Center" FontFamily="{StaticResource MaterialDesignFont}">Overwrite files</Label>
+                        
+                    </StackPanel>
+                </DockPanel>
 
                 <!--Files, folders list-->
                 <ListView Background="#F3F4ED" Name="FilesListView"  DockPanel.Dock="Bottom">
@@ -116,7 +121,7 @@
                         <ColumnDefinition Width="290"/>
                     </Grid.ColumnDefinitions>
                     <DockPanel Margin="10,5">
-                        <Label Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center" Width="110">Rule Set name</Label>
+                        <Label  FontFamily="{StaticResource MaterialDesignFont}" Name="RuleSetNameLabel" Foreground="FloralWhite" FontSize="15" Grid.Column="0" VerticalAlignment="Center" Width="110">Rule Set name</Label>
                         <Button Margin="20,0,0,0" Name="ApplyButton" Click="ApplyButton_OnClick">Apply</Button>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 

@@ -21,10 +21,11 @@ namespace Batch_Rename
         public string PreviewName { get; set; }//các luật đổi tên thao tác trên thuộc tính này
         public bool IsChecked { get; set; }
         public bool IsFile { get; set; }//check if file or folder
-        public bool Rename(string copyPath)
+        public bool Rename(string copyPath, bool overwrite)
         {
             try
             {
+
                 if (IsChecked)
                 {
                     if (IsFile)
@@ -32,12 +33,12 @@ namespace Batch_Rename
                         if (copyPath == Path)//copyPath đc truyền vào là Path tức là người dùng k dùng chức năng copy to
                         {
                             if (Name != PreviewName)
-                                File.Move(FullName, $"{copyPath}/{PreviewName}",
-                                    true); //ở đây không xài copy overwrite vì khi đổi tên nó thành file khác và đc copy chồng vô
+                                File.Move(FullName, $"{copyPath}/{PreviewName}", overwrite);
+
                         }
                         else
                         {
-                            File.Copy(FullName, $"{copyPath}/{PreviewName}", true);
+                            File.Copy(FullName, $"{copyPath}/{PreviewName}", overwrite);
                         }
                     }
                     else

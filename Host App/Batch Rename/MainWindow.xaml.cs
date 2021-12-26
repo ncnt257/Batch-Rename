@@ -46,7 +46,8 @@ namespace Batch_Rename
             foreach (var filepath in filepaths)
             {
                 if (filepath.IsChecked) count++;
-                renameSuccess = filepath.Rename(CopyToTextBlock.Text != "" ? CopyToTextBlock.Text : filepath.Path);
+                renameSuccess = filepath.Rename(CopyToTextBlock.Text != "" ? CopyToTextBlock.Text : filepath.Path,
+                    OverwriteCheckBox.IsChecked ?? false);
             }
             if (renameSuccess)
             {
