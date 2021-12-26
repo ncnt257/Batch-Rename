@@ -40,6 +40,7 @@ namespace Batch_Rename
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
             var count = 0;
+
             var renameSuccess = false;
             if (_actions.Count == 0 || filepaths.Count == 0) return;
             foreach (var filepath in filepaths)
@@ -273,6 +274,10 @@ namespace Batch_Rename
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            //check chưa có luật thì return luôn
+            if (_actions.Count() == 0)
+                return;
+
             if (sFileName == "")
             {
                 SaveAs_click(sender, e);
@@ -324,6 +329,10 @@ namespace Batch_Rename
 
         private void SaveAs_click(object sender, RoutedEventArgs e)
         {
+            //check chưa có luật thì return luôn
+            if (_actions.Count() == 0)
+                return;
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "XML Files | *.xml";
             if (saveFileDialog.ShowDialog() == true)

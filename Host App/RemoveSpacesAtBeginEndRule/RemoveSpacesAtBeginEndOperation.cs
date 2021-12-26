@@ -83,13 +83,13 @@ namespace RemoveSpacesAtBeginEndRule
 
             Regex ext = new Regex("[.]\\w{2,}$");
             Match m3 = ext.Match(origin);
-            int extentionIdx = origin.LastIndexOf(m3.ToString());
+            int extensionIdx = origin.LastIndexOf(m3.ToString());
 
-            string extention = origin.Substring(extentionIdx);
+            string extension = origin.Substring(extensionIdx);
 
-            string removedExtendName = origin.Substring(0, extentionIdx);
+            string removedExtensionName = origin.Substring(0, extensionIdx);
 
-            return removedExtendName.Trim() + extention ;
+            return removedExtensionName.Trim() + extension ;
         }
     }
 }
