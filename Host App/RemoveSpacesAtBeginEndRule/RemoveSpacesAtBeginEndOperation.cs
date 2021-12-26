@@ -85,11 +85,11 @@ namespace RemoveSpacesAtBeginEndRule
             Match m3 = ext.Match(origin);
             int extensionIdx = origin.LastIndexOf(m3.ToString());
 
-            string extention = origin.Substring(extensionIdx);
+            string extension = origin.Substring(extensionIdx);
 
             string removedExtensionName = origin.Substring(0, extensionIdx);
 
-            return removedExtensionName.Trim() + extention ;
+            return removedExtensionName.Trim() + extension ;
         }
     }
 }
