@@ -54,7 +54,6 @@ namespace AddPrefixRule
         }
         public string Operate(string origin, bool isFile)
         {
-            MessageBox.Show(origin);
             var args = Args as AddPrefixArgs;
             return args.Prefix + origin;
             
