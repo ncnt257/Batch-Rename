@@ -60,7 +60,7 @@ namespace ReplaceCharacter
                 },
                 IsChecked = true,
                 PreviewTriggerEvent = this.PreviewTriggerEvent
-                
+
             };
             var args = clone.Args as ReplaceCharacterArgs;
             var configUc = clone.ConfigUC as ReplaceCharacterUC;
@@ -86,7 +86,10 @@ namespace ReplaceCharacter
             string extend = ext.Match(origin).ToString();
             int idx = origin.IndexOf(extend);
             string nameWithoutExtend = origin.Substring(0, idx);
-
+            if (extend == "")
+            {
+                nameWithoutExtend = origin;
+            }
             foreach (var character in args.From)
             {
                 char temp = character[0];

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace ReplaceCharacter
@@ -21,7 +20,7 @@ namespace ReplaceCharacter
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            ((ReplaceCharacterArgs) _operation.Args)
+            ((ReplaceCharacterArgs)_operation.Args)
                 .To = Param.Text;
 
             _operation.Args = (_operation.Args as ReplaceCharacterArgs)
@@ -38,6 +37,7 @@ namespace ReplaceCharacter
         private void AddArgBtn_OnClickBtn_Click(object sender, RoutedEventArgs e)
         {
             var insertCharacter = (ArgsAdd.Text ?? "");
+            if (insertCharacter == "") return;
             bool flag = true;
             var bindingList = (_operation.Args as ReplaceCharacterArgs)?.From;
             if (bindingList != null)
