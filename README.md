@@ -5,7 +5,7 @@
 - 19120400 Trần Đắc Toàn
 
 # How to run app
-- Click execute file in folder Publish 
+- Click execute file in folder [Publish]() 
 - Then enjoy the result of our effort
 
 # About the project
