@@ -1,11 +1,12 @@
 # Team members
-- 19120421 Nguyễn Công Nhật Tùng (team leader)
 - 19120299 Nguyễn Thế Nam
 - 19120361 Đặng Đức Thắng
 - 19120400 Trần Đắc Toàn
+- 19120421 Nguyễn Công Nhật Tùng
 
 # How to run app
-- Click execute file in folder [Publish]() 
+- Click execute file in folder [Release]() 
+- External rules .dll file are already there 
 - Then enjoy the result of our effort
 
 # About the project
@@ -46,7 +47,7 @@ This is an amazing app help us renaming many files and folder at the same time w
 6. Creating a copy of all the files and move them to a selected folder rather than perform the renaming on the original file
 
 # Link demo app
-[Click here](https://www.youtube.com/watch?v=WZIALw4pGvo&feature=youtu.be)
+[Click here](https://youtu.be/LGZ4eRGX3dU)
 
 # Expect grade 9.0
 
