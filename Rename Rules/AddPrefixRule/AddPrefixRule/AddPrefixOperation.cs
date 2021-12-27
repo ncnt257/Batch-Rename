@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 namespace AddPrefixRule
 {
@@ -51,20 +52,11 @@ namespace AddPrefixRule
         public void ResetRule()
         {
         }
-
         public string Operate(string origin, bool isFile)
         {
             var args = Args as AddPrefixArgs;
-            string prefix = args.Prefix;
-            if (!isFile)
-            {
-                return prefix + origin;
-            }
-            Regex ext = new Regex("[.]\\w{2,}$");
-            string extend = ext.Match(origin).ToString();
-            int idx = origin.IndexOf(extend);
-            string newName = prefix + origin.Substring(0, idx) + extend;
-            return newName;
+            return args.Prefix + origin;
+            
         }
 
         public void CreateFromRaw(RawRule input)

@@ -72,7 +72,8 @@ namespace AddCounterRule
             {
                 Start = ToNullableInt(input.AgrList[0]),
                 Step = ToNullableInt(input.AgrList[1]),
-                Digit = ToNullableInt(input.AgrList[2])
+                Digit = ToNullableInt(input.AgrList[2]),
+                Counter = ToNullableInt(input.AgrList[0])
             };
             ConfigUC.DataContext = this.Args;
         }
@@ -82,8 +83,8 @@ namespace AddCounterRule
             List<string> resultList = new List<string>();
             var args = Args as AddCounterArgs;
             resultList.Add(args.Start.ToString());
-            resultList.Add(args.Start.ToString());
-            resultList.Add(args.Start.ToString());
+            resultList.Add(args.Step.ToString());
+            resultList.Add(args.Digit.ToString());
             return resultList;
         }
 

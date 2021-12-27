@@ -96,9 +96,6 @@ namespace Lowercase_RemoveSpaces
             return removedExtendName.ToLower() + extend;
         }
 
-        List<string> IStringOperation.GetStringAgrs()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

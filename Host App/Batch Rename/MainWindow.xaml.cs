@@ -204,8 +204,8 @@ namespace Batch_Rename
             {
                 var userControl = operation.ConfigUC;
                 RuleConfigContent.Content = operation.ConfigUC;
-                var s = new GridLength(290);
-                if (RuleConfigColumn.Width.Value < 290)
+                var s = new GridLength(310);
+                if (RuleConfigColumn.Width.Value < 310)
                 {
                     RuleConfigColumn.Width = s;
                 }
@@ -294,7 +294,7 @@ namespace Batch_Rename
                     RuleName = action.Name,
                     AgrList = action.GetStringAgrs(),
                     IsChecked = action.IsChecked
-                };
+                };  
                 outputFileRules.Add(temp);
             }
             serializer.Serialize(stream, outputFileRules);
@@ -305,7 +305,7 @@ namespace Batch_Rename
         {
             _actions.Clear();
             OpenFileDialog browseDialog = new OpenFileDialog();
-            browseDialog.Filter = "XML Files (*.xml*)|*.xml*";
+            browseDialog.Filter = "XML Files (.xml)|*.xml*";
             browseDialog.FilterIndex = 1;
             browseDialog.Multiselect = false;
 
@@ -323,6 +323,7 @@ namespace Batch_Rename
             foreach (var rawRule in results)
             {
                 var temp = renameRuleFactory.Create(rawRule);
+                
                 _actions.Add(temp);
             }
             PreviewTrigger();

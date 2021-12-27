@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ReplaceCharacter
@@ -9,47 +10,54 @@ namespace ReplaceCharacter
     public partial class ReplaceCharacterUC : UserControl
     {
         private readonly ReplaceCharacterOperation _operation;
-        public ReplaceCharacterArgs args = new ReplaceCharacterArgs();
+
         public ReplaceCharacterUC(ReplaceCharacterOperation operation)
         {
             InitializeComponent();
             _operation = operation;
-            args = _operation.Args as ReplaceCharacterArgs;
-            ArgList.ItemsSource = args.From;
+            ArgList.ItemsSource = (_operation.Args as ReplaceCharacterArgs)?.From;
         }
+
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            args.To = Param.Text;
-            _operation.Args = args;
+            ((ReplaceCharacterArgs) _operation.Args)
+                .To = Param.Text;
+
+            _operation.Args = (_operation.Args as ReplaceCharacterArgs)
+                ;
             _operation.DescriptionChangedNotify();
         }
 
         private void RemoveArg_Click(object sender, RoutedEventArgs e)
         {
             int index = ArgList.SelectedIndex;
-            args.From.RemoveAt(index);
+            (_operation.Args as ReplaceCharacterArgs)?.From.RemoveAt(index);
         }
 
         private void AddArgBtn_OnClickBtn_Click(object sender, RoutedEventArgs e)
         {
             var insertCharacter = (ArgsAdd.Text ?? "");
             bool flag = true;
-            foreach (var character in args.From)
+            var bindingList = (_operation.Args as ReplaceCharacterArgs)?.From;
+            if (bindingList != null)
             {
-                if (character == insertCharacter)
+                foreach (var character in bindingList)
                 {
-                    ArgsAdd.Text = "";
-                    MessageBox.Show("This character has been existed");
-                    flag = false;
-                    break;
+                    if (character == insertCharacter)
+                    {
+                        ArgsAdd.Text = "";
+                        MessageBox.Show("This character has been existed");
+                        flag = false;
+                        break;
+                    }
                 }
-            }
 
-            if (flag)
-            {
-                args.From.Add(insertCharacter);
-                ArgsAdd.Text = "";
+                if (flag)
+                {
+                    (_operation.Args as ReplaceCharacterArgs)?.From.Add(insertCharacter);
+                    ArgsAdd.Text = "";
+                }
             }
         }
     }
