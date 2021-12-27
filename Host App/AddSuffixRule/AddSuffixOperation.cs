@@ -101,7 +101,7 @@ namespace AddSuffixRule
                 return origin + suffix;
             }
             if(idx == 0)
-            {
+            {   
                 return suffix + extension;
             }
             string newName = origin.Substring(0, idx) + suffix + extension;
