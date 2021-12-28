@@ -11,6 +11,7 @@ namespace Batch_Rename
     {
         public static void CopyFilesRecursively(string sourcePath, string targetPath)
         {
+            Directory.CreateDirectory(targetPath);
             //Now Create all of the directories
             foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
             {
